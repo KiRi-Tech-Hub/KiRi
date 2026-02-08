@@ -1,59 +1,120 @@
-import { ArrowRight, Globe, Linkedin, Twitter } from 'lucide-react';
+import { ArrowRight, Globe, Linkedin, Twitter, Handshake, Lightbulb, Zap, Cpu, TrendingUp } from 'lucide-react';
 import ExpertiseSection from '../components/ExpertiseSection';
+import IndustriesSection from '../components/IndustriesSection';
+import TechnologiesSection from '../components/TechnologiesSection';
+import ProcessSection from '../components/ProcessSection';
+import FAQSection from '../components/FAQSection';
+import ContactFormSection from '../components/ContactFormSection';
 
 export default function Home() {
     return (
         <div className="min-h-screen bg-white dark:bg-slate-950 text-slate-900 dark:text-white pt-20 transition-colors duration-300">
             {/* Hero Section */}
-            <section className="relative px-4 min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20 pb-60">
-                <div className="max-w-7xl mx-auto text-center space-y-8">
-                    {/* Pill */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-slate-900 text-xs font-semibold tracking-wider uppercase text-slate-600 dark:text-slate-400 mb-4 animate-fade-in border border-transparent dark:border-slate-800">
-                        Innovate. Integrate. Impact.
+            {/* Hero Section - Professional Redesign */}
+            <section className="relative px-4 min-h-screen flex flex-col justify-center items-center overflow-hidden pt-20 pb-40">
+                {/* Background Grid Pattern */}
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]"
+                    style={{ backgroundImage: 'linear-gradient(#94a3b8 1px, transparent 1px), linear-gradient(90deg, #94a3b8 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+                </div>
+
+                {/* Radial Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto text-center space-y-8 relative z-10">
+
+                    {/* Slogan - Highly Highlighted */}
+                    <div className="flex flex-col items-center gap-4 mb-4 animate-fade-in">
+                        <div className="w-1 h-12 bg-gradient-to-b from-transparent via-blue-500 to-transparent opacity-50"></div>
+                        <h2 className="text-sm md:text-base font-bold tracking-[0.3em] uppercase text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-500 to-orange-500 animate-gradient-x select-none">
+                            Innovate &bull; Integrate &bull; Impact
+                        </h2>
                     </div>
 
-                    {/* Headline */}
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.1] animate-fade-in">
-                        Building Scalable <br />
-                        <span className="text-blue-600 dark:text-blue-500">Digital Excellence</span>
+                    {/* Headline - Serif & Impactful */}
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold tracking-tight text-slate-900 dark:text-white leading-[1.05] animate-fade-in">
+                        Engineering digital <br />
+                        <span className="italic text-slate-400 dark:text-slate-600 font-light">excellence.</span>
                     </h1>
 
-                    {/* Description */}
-                    <p className="text-lg md:text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-100">
-                        We design and develop modern web and mobile solutions that empower businesses worldwide. By combining creativity with technology, we build digital products that are fast, scalable, and crafted to deliver exceptional user experiences.
+                    {/* Description - Professional & Concise */}
+                    <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed animate-fade-in delay-100 font-light">
+                        We don't just write code; we architect scalable digital ecosystems. Partner with us to transform complex challenges into elegant, high-performance solutions.
                     </p>
 
-                    {/* Buttons */}
-                    <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4 animate-fade-in delay-200">
-                        <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-md font-semibold text-sm uppercase tracking-wider transition-all shadow-lg shadow-blue-500/30">
-                            Start a Project
+                    {/* Buttons - Refined */}
+                    <div className="flex flex-col sm:flex-row justify-center gap-6 pt-8 animate-fade-in delay-200">
+                        <button className="group relative px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-semibold text-sm uppercase tracking-widest transition-all hover:scale-105 hover:shadow-xl hover:shadow-blue-500/20 overflow-hidden">
+                            <span className="relative z-10 flex items-center gap-2">
+                                Start A Project
+                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            </span>
+                            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
                         </button>
-                        <button className="px-8 py-4 bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white rounded-md font-semibold text-sm uppercase tracking-wider transition-all border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700">
-                            View Portfolio
+
+                        <button className="px-8 py-4 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-full font-semibold text-sm uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600">
+                            Our Work
                         </button>
                     </div>
                 </div>
             </section>
 
-            {/* Partners Section */}
-            <section className="py-12 border-t border-slate-100 dark:border-slate-900">
-                <div className="max-w-7xl mx-auto px-4 text-center space-y-8">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-                        Partners in Innovation
+            {/* Partner in Innovation Section - Redesigned */}
+            <section className="py-20 border-t border-slate-100 dark:border-slate-900 bg-slate-50 dark:bg-slate-900/50">
+                <div className="max-w-7xl mx-auto px-4 text-center">
+                    <p className="text-blue-600 dark:text-blue-500 font-bold tracking-widest uppercase text-xs mb-4">
+                        PARTNER IN INNOVATION
                     </p>
-                    <div className="flex flex-wrap justify-center gap-12 opacity-50 grayscale hover:grayscale-0 transition-all duration-500">
-                        {/* Placeholders for partner logos */}
-                        <div className="h-8 w-24 bg-slate-200 dark:bg-slate-800 rounded animate-pulse"></div>
-                        <div className="h-8 w-24 bg-slate-200 dark:bg-slate-800 rounded animate-pulse delay-75"></div>
-                        <div className="h-8 w-24 bg-slate-200 dark:bg-slate-800 rounded animate-pulse delay-150"></div>
-                        <div className="h-8 w-24 bg-slate-200 dark:bg-slate-800 rounded animate-pulse delay-200"></div>
-                        <div className="h-8 w-24 bg-slate-200 dark:bg-slate-800 rounded animate-pulse delay-300"></div>
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6">
+                        We work closely with founders & startups
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-400 max-w-3xl mx-auto text-lg mb-12">
+                        Acting as your technology partner from idea validation to scalable product launch.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+                        {[
+                            { icon: Handshake, text: "Collaborative approach" },
+                            { icon: Lightbulb, text: "Idea-to-product guidance" },
+                            { icon: Zap, text: "Agile & fast execution" },
+                            { icon: Cpu, text: "Modern scalable tech" },
+                            { icon: TrendingUp, text: "Growth-focused solutions" },
+                        ].map((item, index) => (
+                            <div key={index} className="flex flex-col items-center gap-4 group">
+                                <div className="w-16 h-16 bg-white dark:bg-slate-800 rounded-2xl flex items-center justify-center shadow-sm group-hover:shadow-md transition-all group-hover:-translate-y-1 border border-slate-100 dark:border-slate-700">
+                                    <item.icon className="w-8 h-8 text-blue-500" />
+                                </div>
+                                <span className="font-medium text-slate-700 dark:text-slate-300 text-sm">
+                                    {item.text}
+                                </span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-16 flex justify-center">
+                        <div className="inline-flex items-center gap-3 bg-white dark:bg-slate-800 px-5 py-2.5 rounded-full shadow-sm border border-slate-200 dark:border-slate-700">
+                            <span className="relative flex h-2.5 w-2.5">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+                            </span>
+                            <span className="text-slate-600 dark:text-slate-300 text-sm font-medium tracking-wide">
+                                Accepting select projects for Q3 2026
+                            </span>
+                        </div>
                     </div>
                 </div>
             </section>
 
             {/* Expertise Section - Redesigned */}
             <ExpertiseSection />
+
+            {/* Process Section - Product Development Process */}
+            <ProcessSection />
+
+            {/* Industries Section */}
+            <IndustriesSection />
+
+            {/* Technologies Marquee Section */}
+            <TechnologiesSection />
 
             {/* CTA Section */}
             <section className="py-20 px-4">
@@ -76,6 +137,12 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* FAQ Section */}
+            <FAQSection />
+
+            {/* Contact Form Section */}
+            <ContactFormSection />
 
             {/* Footer */}
             <footer className="bg-slate-50 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 pt-16 pb-8">
