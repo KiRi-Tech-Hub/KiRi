@@ -10,31 +10,37 @@ const menuData = [
         items: [
             {
                 title: 'Web Development',
+                slug: 'web-development',
                 description: 'Create intuitive websites & web apps that boost brand presence.',
                 icon: Globe
             },
             {
                 title: 'Mobile App Development',
+                slug: 'mobile-app-development',
                 description: 'Build dynamic iOS & Android apps to reach vast audiences.',
                 icon: Smartphone
             },
             {
                 title: 'Custom Application',
+                slug: 'custom-application',
                 description: 'Applications built to meet your unique business needs perfectly.',
                 icon: Layers
             },
             {
                 title: 'AI / ML Development',
+                slug: 'ai-ml-development',
                 description: 'Smart AI ML solutions that automate tasks and boost performance.',
                 icon: Database
             },
             {
                 title: 'SaaS Application',
+                slug: 'saas-application',
                 description: 'Create intuitive, engaging, and high-quality web applications.',
                 icon: Rocket
             },
             {
                 title: 'API Development',
+                slug: 'api-development',
                 description: 'Integrate APIs into the application to optimize performance.',
                 icon: Code
             }
@@ -47,16 +53,19 @@ const menuData = [
         items: [
             {
                 title: 'SEO Optimization',
+                slug: 'seo-optimization',
                 description: 'Improve search rankings and drive organic traffic.',
                 icon: Globe
             },
             {
                 title: 'Social Media Marketing',
+                slug: 'social-media-marketing',
                 description: 'Engage audiences across all major social platforms.',
                 icon: Smartphone
             },
             {
                 title: 'Content Strategy',
+                slug: 'content-strategy',
                 description: 'Compelling content that converts visitors into customers.',
                 icon: Layers
             }
@@ -69,16 +78,19 @@ const menuData = [
         items: [
             {
                 title: 'UI/UX Design',
+                slug: 'ui-ux-design',
                 description: 'User-centric designs that delight and engage.',
                 icon: Layout
             },
             {
                 title: 'Brand Identity',
+                slug: 'brand-identity',
                 description: 'Logos and visual systems that define your brand.',
                 icon: Rocket
             },
             {
                 title: 'Graphic Design',
+                slug: 'graphic-design',
                 description: 'Visual assets for marketing and communication.',
                 icon: Globe
             }
@@ -148,7 +160,7 @@ export default function MegaMenu({ isOpen, onMouseEnter, onMouseLeave }: MegaMen
 
                             {category.items.map((item, index) => (
                                 <Link
-                                    to="#"
+                                    to={`/services/${item.slug}`}
                                     key={index}
                                     className="group block p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
                                 >
@@ -167,6 +179,6 @@ export default function MegaMenu({ isOpen, onMouseEnter, onMouseLeave }: MegaMen
                     ))}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

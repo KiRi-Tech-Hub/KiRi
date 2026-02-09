@@ -61,7 +61,11 @@ const expertiseData = [
     }
 ];
 
-export default function ExpertiseSection() {
+interface ExpertiseSectionProps {
+    onOpenModal?: () => void;
+}
+
+export default function ExpertiseSection({ onOpenModal }: ExpertiseSectionProps) {
     return (
         <section className="py-24 bg-slate-50 dark:bg-slate-950 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -79,7 +83,7 @@ export default function ExpertiseSection() {
                         </p>
 
                         <div className="mb-8">
-                            <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 flex items-center gap-2 group">
+                            <button onClick={onOpenModal} className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full text-lg font-bold transition-all shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 active:scale-95 flex items-center gap-2 group">
                                 Consult Experts
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </button>

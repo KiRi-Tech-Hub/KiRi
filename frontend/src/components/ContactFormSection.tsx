@@ -1,6 +1,37 @@
-import { Phone, Mail, ArrowRight } from 'lucide-react';
+import { Phone, Mail, ArrowRight, Loader2 } from 'lucide-react';
+import React, { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
 
 export default function ContactFormSection() {
+    const form = useRef<HTMLFormElement>(null);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+    const sendEmail = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!form.current) return;
+
+        setIsSubmitting(true);
+        setStatus('idle');
+
+        const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+        const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+        const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+        emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, form.current, PUBLIC_KEY)
+            .then((result) => {
+                console.log(result.text);
+                setStatus('success');
+                form.current?.reset();
+            }, (error) => {
+                console.log(error.text);
+                setStatus('error');
+            })
+            .finally(() => {
+                setIsSubmitting(false);
+            });
+    };
+
     return (
         <section className="relative w-full overflow-hidden bg-white dark:bg-slate-950 py-24" id="contact">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,11 +107,12 @@ export default function ContactFormSection() {
                             </h3>
                             <p className="text-slate-500 mb-10">We usually respond within 24 hours.</p>
 
-                            <form className="space-y-6">
+                            <form ref={form} onSubmit={sendEmail} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="relative group">
                                         <input
                                             type="text"
+                                            name="user_name"
                                             required
                                             placeholder=" "
                                             className="peer w-full px-5 py-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
@@ -93,6 +125,7 @@ export default function ContactFormSection() {
                                     <div className="relative group">
                                         <input
                                             type="email"
+                                            name="user_email"
                                             required
                                             placeholder=" "
                                             className="peer w-full px-5 py-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
@@ -107,6 +140,7 @@ export default function ContactFormSection() {
                                     <div className="relative group">
                                         <input
                                             type="tel"
+                                            name="user_phone"
                                             placeholder=" "
                                             className="peer w-full px-5 py-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium"
                                         />
@@ -117,6 +151,7 @@ export default function ContactFormSection() {
 
                                     <div className="relative group">
                                         <select
+                                            name="service_interest"
                                             required
                                             className="peer w-full px-5 py-4 rounded-xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 transition-all font-medium appearance-none cursor-pointer"
                                             defaultValue=""
@@ -138,6 +173,7 @@ export default function ContactFormSection() {
 
                                 <div className="relative group">
                                     <textarea
+                                        name="message"
                                         required
                                         placeholder=" "
                                         rows={4}
@@ -149,12 +185,34 @@ export default function ContactFormSection() {
                                 </div>
 
                                 <button
-                                    type="button"
-                                    className="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 active:scale-[0.98] transform flex items-center justify-center gap-2 group"
+                                    type="submit"
+                                    disabled={isSubmitting}
+                                    className="w-full bg-gradient-to-r from-orange-500 to-pink-600 hover:from-orange-600 hover:to-pink-700 text-white font-bold text-lg py-4 rounded-xl transition-all shadow-lg shadow-orange-500/25 hover:shadow-orange-500/40 active:scale-[0.98] transform flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
                                 >
-                                    Get Your Free Quote
-                                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                    {isSubmitting ? (
+                                        <>
+                                            <Loader2 className="w-5 h-5 animate-spin" />
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            Get Your Free Quote
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </>
+                                    )}
                                 </button>
+
+                                {/* Simple Status Feedback */}
+                                {status === 'success' && (
+                                    <p className="text-center text-green-500 font-semibold animate-in fade-in slide-in-from-bottom-2">
+                                        Success! We've received your message and will be in touch shortly.
+                                    </p>
+                                )}
+                                {status === 'error' && (
+                                    <p className="text-center text-red-500 font-semibold animate-in fade-in slide-in-from-bottom-2">
+                                        Something went wrong. Please try again or email us directly.
+                                    </p>
+                                )}
                             </form>
                         </div>
                     </div>
