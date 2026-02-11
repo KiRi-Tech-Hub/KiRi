@@ -1,6 +1,7 @@
-import React from 'react';
+
 
 import { BentoGrid, BentoGridItem } from '../components/ui/bento-grid';
+import { BackgroundBeams } from '../components/ui/background-beams';
 import { BookOpen, Target, Heart, Zap, ShieldCheck, Users } from 'lucide-react';
 
 
@@ -140,6 +141,118 @@ export default function OurPhilosophy() {
                     </div>
                 </div>
             </section>
+
+            {/* Process Section - How We Work */}
+            <section className="py-24 bg-neutral-900 border-t border-neutral-800 relative overflow-hidden">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4 font-serif">
+                            From Concept to Reality
+                        </h2>
+                        <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
+                            Our process is designed to bring clarity to complexity. We guide you through every step of the digital transformation journey.
+                        </p>
+                    </div>
+
+                    <div className="relative">
+                        {/* Connecting Line (Desktop) */}
+                        <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-500/30 to-transparent -translate-y-1/2 z-0"></div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                            {[
+                                { step: "01", title: "Discovery", desc: "Understanding your vision, goals, and challenges." },
+                                { step: "02", title: "Strategy", desc: "Architecting a roadmap for scalable success." },
+                                { step: "03", title: "Execution", desc: "Building with precision, agility, and best practices." },
+                                { step: "04", title: "Evolution", desc: "Continuous improvement and growth scaling." }
+                            ].map((item, idx) => (
+                                <div key={idx} className="bg-neutral-800/80 backdrop-blur-sm p-8 rounded-2xl shadow-xl border border-neutral-700 relative group hover:-translate-y-2 transition-transform duration-300">
+                                    <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center font-bold text-lg mb-4 mx-auto md:mx-0 relative z-10 shadow-lg shadow-blue-500/30">
+                                        {item.step}
+                                    </div>
+                                    <h3 className="text-xl font-bold text-white mb-2 text-center md:text-left">{item.title}</h3>
+                                    <p className="text-neutral-400 text-sm leading-relaxed text-center md:text-left">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Why KiRi Section */}
+            <section className="py-24 bg-white dark:bg-slate-950">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div>
+                            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-serif">
+                                Why Choose KiRi?
+                            </h2>
+                            <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                                In a world of cookie-cutter solutions, we build bespoke. We don't just deliver code; we deliver competitive advantage.
+                            </p>
+
+                            <div className="space-y-6">
+                                {[
+                                    { title: "Business-First Approach", desc: "We align technology with your business metrics, not just engineering goals." },
+                                    { title: "Obsessive Quality", desc: "We have zero tolerance for spaghetti code or bad UX." },
+                                    { title: "Rapid Velocity", desc: "Our agile workflows ensure you get to market faster without breaking things." }
+                                ].map((feature, i) => (
+                                    <div key={i} className="flex gap-4">
+                                        <div className="mt-1">
+                                            <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                                                <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-slate-900 dark:text-white">{feature.title}</h4>
+                                            <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">{feature.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-blue-600 to-purple-600 rounded-3xl blur-2xl opacity-20 transform rotate-6"></div>
+                            <div className="relative bg-neutral-900 rounded-3xl p-8 border border-neutral-800 shadow-2xl">
+                                <div className="space-y-4 font-mono text-sm">
+                                    <div className="flex gap-2 text-neutral-500">
+                                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                                    </div>
+                                    <div className="text-green-400">$ kiri start-project</div>
+                                    <div className="text-white">Initializing excellence...</div>
+                                    <div className="text-blue-400">✓ Strategy aligned</div>
+                                    <div className="text-blue-400">✓ Architecture designed</div>
+                                    <div className="text-blue-400">✓ UX optimized</div>
+                                    <div className="text-white">🚀 Launching success...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* CTA Section */}
+            <div className="relative w-full h-[50vh] flex flex-col items-center justify-center overflow-hidden bg-neutral-950">
+                <div className="absolute inset-0 w-full h-full bg-neutral-950 z-0">
+                    <BackgroundBeams />
+                </div>
+                <div className="relative z-10 text-center px-4">
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif">
+                        Ready to Build the Future?
+                    </h2>
+                    <p className="text-neutral-400 max-w-lg mx-auto mb-8 text-lg">
+                        Let's turn your boldest ideas into digital reality.
+                        Partner with KiRi for your next breakthrough.
+                    </p>
+                    <button className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-neutral-200 transition-colors shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                        Start a Conversation
+                    </button>
+                </div>
+            </div>
         </div>
     );
 }
