@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import OurPhilosophy from './pages/OurPhilosophy';
 import Header from './components/Header';
 import Home from './pages/Home';
 import Services from './pages/Services';
@@ -25,6 +26,7 @@ function App() {
           <Route path="/industries" element={<Industries />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/technologies" element={<Technologies />} />
+          <Route path="/our-philosophy" element={<OurPhilosophy />} />
         </Routes>
         <ContactFormSection />
         <Footer />

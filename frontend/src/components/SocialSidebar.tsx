@@ -12,7 +12,7 @@ export default function SocialSidebar() {
                     <Phone size={20} />
                     <span className="absolute left-full ml-4 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">+91 85117 05401</span>
                 </a>
-                <a href="https://www.linkedin.com/in/kiri-techhub-6464393ab/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 dark:hover:text-blue-500 transition-all hover:scale-110 shadow-sm hover:shadow-md group relative">
+                <a href="https://www.linkedin.com/company/kiri-techhub/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white dark:bg-slate-900 rounded-full border border-slate-200 dark:border-slate-800 text-slate-500 hover:text-blue-600 dark:hover:text-blue-500 transition-all hover:scale-110 shadow-sm hover:shadow-md group relative">
                     <Linkedin size={20} />
                     <span className="absolute left-full ml-4 bg-slate-900 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">LinkedIn</span>
                 </a>
