@@ -2,7 +2,8 @@
 
 import { BentoGrid, BentoGridItem } from '../components/ui/bento-grid';
 import { BackgroundBeams } from '../components/ui/background-beams';
-import { BookOpen, Target, Heart, Zap, ShieldCheck, Users } from 'lucide-react';
+import OrbitingCircles from '../components/ui/orbiting-circles';
+import { BookOpen, Target, Heart, Zap, ShieldCheck, Users, Cpu, Globe, Server, Code, Database, Rocket, Star, MessageSquareQuote } from 'lucide-react';
 
 
 export default function OurPhilosophy() {
@@ -181,6 +182,64 @@ export default function OurPhilosophy() {
                 </div>
             </section>
 
+            {/* Tech Ecosystem Section */}
+            <section className="py-24 bg-white dark:bg-slate-950 overflow-hidden relative">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+                    <div className="order-2 lg:order-1 relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
+                        <span className="pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300 bg-clip-text text-center text-8xl font-semibold leading-none text-transparent dark:from-white dark:to-black">
+                            KiRi
+                        </span>
+
+                        {/* Inner Circles */}
+                        <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={20} radius={80}>
+                            <Code className="h-6 w-6 text-blue-500" />
+                        </OrbitingCircles>
+                        <OrbitingCircles className="size-[30px] border-none bg-transparent" duration={20} delay={10} radius={80}>
+                            <Database className="h-6 w-6 text-green-500" />
+                        </OrbitingCircles>
+
+                        {/* Middle Circles */}
+                        <OrbitingCircles className="size-[50px] border-none bg-transparent" reverse duration={20} delay={10} radius={140}>
+                            <Server className="h-8 w-8 text-purple-500" />
+                        </OrbitingCircles>
+                        <OrbitingCircles className="size-[50px] border-none bg-transparent" reverse duration={20} delay={20} radius={140}>
+                            <Globe className="h-8 w-8 text-cyan-500" />
+                        </OrbitingCircles>
+
+                        {/* Outer Circles */}
+                        <OrbitingCircles className="size-[50px] border-none bg-transparent" duration={20} delay={10} radius={210}>
+                            <Cpu className="h-10 w-10 text-orange-500" />
+                        </OrbitingCircles>
+                        <OrbitingCircles className="size-[50px] border-none bg-transparent" duration={20} delay={5} radius={210}>
+                            <Zap className="h-10 w-10 text-yellow-500" />
+                        </OrbitingCircles>
+                    </div>
+
+                    <div className="order-1 lg:order-2">
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6 font-serif">
+                            Powered by Modern Tech
+                        </h2>
+                        <p className="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed">
+                            We don't rely on outdated legacy systems. Our stack is modern, robust, and scalable.
+                            From cloud-native architectures to reactive frontends, we use the best tools for the job.
+                        </p>
+                        <ul className="space-y-4">
+                            {[
+                                "React & Next.js Ecosystem",
+                                "Cloud Native & Serverless",
+                                "AI & Machine Learning Integration",
+                                "Real-time Data Processing"
+                            ].map((item, i) => (
+                                <li key={i} className="flex items-center gap-3 text-slate-700 dark:text-slate-300 font-medium">
+                                    <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                    {item}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
             {/* Why KiRi Section */}
             <section className="py-24 bg-white dark:bg-slate-950">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -231,6 +290,77 @@ export default function OurPhilosophy() {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Impact Stats Section */}
+            <section className="py-24 bg-neutral-900 border-y border-neutral-800 relative">
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                        {[
+                            { value: "50+", label: "Projects Delivered", icon: <Rocket className="w-6 h-6 text-blue-500 mx-auto mb-2" /> },
+                            { value: "99.9%", label: "Uptime Guarantee", icon: <Server className="w-6 h-6 text-green-500 mx-auto mb-2" /> },
+                            { value: "10k+", label: "Lines of Code/Day", icon: <Code className="w-6 h-6 text-purple-500 mx-auto mb-2" /> },
+                            { value: "24/7", label: "Support & Monitoring", icon: <Zap className="w-6 h-6 text-yellow-500 mx-auto mb-2" /> }
+                        ].map((stat, i) => (
+                            <div key={i} className="p-6 rounded-2xl bg-neutral-800/50 backdrop-blur-sm border border-neutral-700 hover:border-neutral-500 transition-colors">
+                                {stat.icon}
+                                <div className="text-4xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
+                                <div className="text-neutral-400 font-medium">{stat.label}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Testimonials Section */}
+            <section className="py-24 bg-slate-50 dark:bg-slate-900">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 font-serif">
+                            What Our Partners Say
+                        </h2>
+                        <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                            Don't just take our word for it. Here's what visionary leaders have to say about working with KiRi.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            {
+                                quote: "KiRi didn't just build a product; they built a scalable foundation for our entire business. Their attention to detail is unmatched.",
+                                author: "Sarah Jenkins",
+                                role: "CTO, FinTech Startups"
+                            },
+                            {
+                                quote: "The speed and quality of delivery were impressive. They translated our complex requirements into a seamless user experience.",
+                                author: "David Chen",
+                                role: "Founder, HealthAI"
+                            },
+                            {
+                                quote: "A true partner in innovation. They challenged our assumptions and helped us build something better than we imagined.",
+                                author: "Elena Rodriguez",
+                                role: "Product Director, EduTech Co"
+                            }
+                        ].map((testimonial, i) => (
+                            <div key={i} className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-lg border border-neutral-100 dark:border-neutral-700 relative">
+                                <MessageSquareQuote className="w-10 h-10 text-blue-100 dark:text-blue-900/30 absolute top-6 right-6" />
+                                <div className="flex gap-1 mb-4">
+                                    {[...Array(5)].map((_, i) => (
+                                        <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                    ))}
+                                </div>
+                                <p className="text-slate-600 dark:text-slate-300 mb-6 italic leading-relaxed">
+                                    "{testimonial.quote}"
+                                </p>
+                                <div>
+                                    <div className="font-bold text-slate-900 dark:text-white">{testimonial.author}</div>
+                                    <div className="text-sm text-slate-500 dark:text-slate-400">{testimonial.role}</div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>

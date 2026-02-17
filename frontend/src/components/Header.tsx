@@ -27,6 +27,7 @@ export default function Header() {
     };
 
     const navItems = [
+        { name: 'Home', path: '/', hasMegaMenu: false },
         { name: 'Services', path: '/services', hasMegaMenu: true },
         { name: 'Solutions', path: '/solutions', hasMegaMenu: true },
         { name: 'Industries', path: '/industries', hasMegaMenu: true },
@@ -60,9 +61,10 @@ export default function Header() {
                             >
                                 <NavLink
                                     to={item.path}
+                                    end={item.path === '/'}
                                     className={({ isActive }) =>
                                         `group flex items-center font-medium text-[15px] transition-colors duration-200 h-full ${isActive || (activeMenu === item.name)
-                                            ? 'text-blue-600 dark:text-blue-400'
+                                            ? (item.name === 'Home' ? 'text-slate-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400' : 'text-blue-600 dark:text-blue-400')
                                             : 'text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400'
                                         }`
                                     }
