@@ -46,10 +46,10 @@ export default function Contact() {
         setStatus('sending');
         try {
             await emailjs.sendForm(
-                'service_xxxxxxx',
-                'template_xxxxxxx',
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
                 form.current,
-                'your_public_key'
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
             setStatus('success');
         } catch {
