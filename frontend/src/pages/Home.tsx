@@ -1,5 +1,6 @@
 import { ArrowRight, Handshake, Lightbulb, Zap, Cpu, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ExpertiseSection from '../components/ExpertiseSection';
 import IndustriesSection from '../components/IndustriesSection';
 import TechnologiesSection from '../components/TechnologiesSection';
@@ -51,9 +52,11 @@ export default function Home() {
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-10 transition-opacity"></div>
                             </button>
 
-                            <button className="px-8 py-4 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-full font-semibold text-sm uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600">
-                                Our Work
-                            </button>
+                            <Link to="/portfolio">
+                                <button className="px-8 py-4 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-400 rounded-full font-semibold text-sm uppercase tracking-widest transition-all border border-slate-200 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-600">
+                                    Our Work
+                                </button>
+                            </Link>
                         </div>
                     </div>
                 </div>

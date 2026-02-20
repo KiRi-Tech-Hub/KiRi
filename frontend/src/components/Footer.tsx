@@ -1,5 +1,5 @@
 
-import React from 'react';
+
 import { Globe, Linkedin, Twitter } from 'lucide-react';
 
 export default function Footer() {
@@ -12,7 +12,7 @@ export default function Footer() {
                             <img src="/logo.png" alt="KiRi" className="h-10 w-auto" />
                         </a>
                         <p className="text-sm text-slate-500 leading-relaxed">
-                            High-end technical consultancy and development. Since 2018, we've been crafting digital products that define industries.
+                            High-end technical consultancy and development. Since 2023, we've been crafting digital products that define industries.
                         </p>
                     </div>
 
@@ -41,12 +41,12 @@ export default function Footer() {
                 </div>
 
                 <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400 uppercase tracking-wider">
-                    <p>© 2024 KIRISTUDIO. PRECISION ENGINEERED.</p>
+                    <p>© 2024 KiRi. PRECISION ENGINEERED.</p>
                     <div className="flex gap-6">
                         <a href="https://mykiri.in" target="_blank" rel="noopener noreferrer">
                             <Globe size={16} className="hover:text-slate-600 cursor-pointer transition-colors" />
                         </a>
-                        <a href="https://www.linkedin.com/company/kiri/" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/company/kiri-techhub/" target="_blank" rel="noopener noreferrer">
                             <Linkedin size={16} className="hover:text-slate-600 cursor-pointer transition-colors" />
                         </a>
                         <a href="https://x.com/KiRi_TechHub" target="_blank" rel="noopener noreferrer">

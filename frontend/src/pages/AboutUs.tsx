@@ -25,21 +25,20 @@ const principles = [
 ];
 
 const timeline = [
-    { year: '2018', title: 'Founded', body: 'Two engineers quit their jobs with one belief: software quality is not a luxury. KiRi is born.' },
-    { year: '2019', title: 'First enterprise client', body: 'Signed a 12-month engagement with a UK-based FinTech. Built a team of 5.' },
-    { year: '2021', title: 'Mobile & Cloud practice', body: 'Expanded service lines. Delivered 30+ projects across India, Singapore, and the UK.' },
-    { year: '2022', title: 'DevOps offering launched', body: 'Added infrastructure, CI/CD, and SRE to our practice. Crossed 25 active client engagements.' },
-    { year: '2024', title: 'AI integration practice', body: 'Launched our AI/ML integration practice. 80+ projects delivered, 40+ long-term partnerships.' },
-    { year: 'Now', title: 'Still growing', body: '18-person team. 3 countries. One obsession — precision-engineered software.' },
+    { year: '2023', title: 'Founded', body: 'Two engineers quit their jobs with one belief: software quality is not a luxury. KiRi is born.' },
+    { year: '2024', title: 'Enterprise Partnerships', body: 'Signed engagements with international clients. Built a core team of specialists.' },
+    { year: '2024', title: 'Mobile & Cloud practice', body: 'Expanded service lines. Delivered 30+ projects across India and Singapore.' },
+    { year: '2025', title: 'AI integration practice', body: 'Launched our AI/ML integration practice. Still obsessed with precision-engineered software.' },
 ];
 
 const team = [
-    { name: 'Kishan Roy', role: 'Co-Founder & CEO', initials: 'KR', hue: '244' },
-    { name: 'Ritika Panda', role: 'Co-Founder & CTO', initials: 'RP', hue: '330' },
-    { name: 'Aman Sharma', role: 'Head of Engineering', initials: 'AS', hue: '142' },
-    { name: 'Priya Mishra', role: 'Head of Design', initials: 'PM', hue: '37' },
-    { name: 'Rohit Das', role: 'Lead Backend Engineer', initials: 'RD', hue: '210' },
-    { name: 'Ayesha Khan', role: 'Product Strategist', initials: 'AK', hue: '270' },
+    {
+        name: 'Kishan Roy',
+        role: 'Founder',
+        initials: 'KR',
+        hue: '244',
+        bio: 'Visionary engineer and strategist dedicated to building high-performance digital products that drive industry transformation.'
+    },
 ];
 
 /* ─── Component ─────────────────────────────────────────────────────── */
@@ -90,7 +89,7 @@ export default function AboutUs() {
                                 className="text-[9px] font-black uppercase tracking-[0.32em] text-white/35 mb-8 flex items-center gap-3"
                             >
                                 <span className="w-6 h-[1px] bg-white/30 inline-block" />
-                                KiRi Tech Hub · Est. 2018
+                                KiRi Tech Hub · Est. 2023
                             </motion.p>
 
                             <motion.h1
@@ -192,7 +191,7 @@ export default function AboutUs() {
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400 block mb-1">Our story</span>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 dark:text-white/15">§ 002</span>
                             <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-6 max-w-[160px]">
-                                Six years of compounding craft.
+                                Two years of compounding craft.
                             </p>
                         </div>
                         <div>
@@ -271,7 +270,7 @@ export default function AboutUs() {
                                 Small by design. Every person here is a senior practitioner.
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-slate-100 dark:bg-white/[0.06] border border-slate-100 dark:border-white/[0.06]">
+                        <div className="grid grid-cols-1 gap-px bg-slate-100 dark:bg-white/[0.06] border border-slate-100 dark:border-white/[0.06] max-w-xl">
                             {team.map((member, i) => (
                                 <motion.div
                                     key={i}
@@ -279,19 +278,20 @@ export default function AboutUs() {
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.35, delay: i * 0.06 }}
-                                    className="bg-white dark:bg-[#0a0a0c] p-6 group hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors"
+                                    className="bg-white dark:bg-[#0a0a0c] p-10 group hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors"
                                 >
                                     {/* Initials block */}
                                     <div
-                                        className="w-12 h-12 rounded-lg flex items-center justify-center text-white text-sm font-black mb-5 transition-transform group-hover:scale-105"
+                                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-xl font-black mb-6 transition-transform group-hover:scale-105"
                                         style={{
                                             background: `linear-gradient(135deg, hsl(${member.hue},70%,55%), hsl(${member.hue},60%,40%))`,
                                         }}
                                     >
                                         {member.initials}
                                     </div>
-                                    <div className="font-bold text-slate-900 dark:text-white text-sm mb-0.5">{member.name}</div>
-                                    <div className="text-slate-400 dark:text-white/30 text-xs font-medium">{member.role}</div>
+                                    <div className="font-bold text-slate-900 dark:text-white text-xl mb-1">{member.name}</div>
+                                    <div className="text-indigo-500 dark:text-indigo-400 text-sm font-bold uppercase tracking-wider mb-4">{member.role}</div>
+                                    <p className="text-slate-500 dark:text-white/40 text-sm leading-relaxed">{member.bio}</p>
                                 </motion.div>
                             ))}
                         </div>

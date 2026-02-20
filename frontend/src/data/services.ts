@@ -4,7 +4,69 @@ import {
     Layout, Search, Share2, PenTool, Image, Briefcase
 } from 'lucide-react';
 
-export const servicesData = {
+
+export interface ProcessStep {
+    title: string;
+    desc: string;
+}
+
+export interface FAQ {
+    q: string;
+    a: string;
+}
+
+export interface Service {
+    title: string;
+    category: string;
+    description: string;
+    detailedDescription: string;
+    features: { title: string; description: string }[];
+    technologies: string[];
+    icon: any;
+    process?: ProcessStep[];
+    faqs?: FAQ[];
+}
+
+const appProcess = [
+    { title: 'Discovery', desc: 'We dive deep into your requirements and business goals.' },
+    { title: 'Design', desc: 'Crafting intuitive interfaces and robust architectures.' },
+    { title: 'Build', desc: 'Agile development with continuous integration and testing.' },
+    { title: 'Launch', desc: 'Seamless deployment and early-stage performance monitoring.' },
+];
+
+const appFaqs = [
+    { q: 'How long does a typical project take?', a: 'Timelines vary based on complexity, but most projects range from 4 to 12 weeks.' },
+    { q: 'Do you offer post-launch support?', a: 'Yes, we provide ongoing maintenance and scaling support for all our solutions.' },
+    { q: 'Can you work with existing codebases?', a: 'Absolutely. We specialize in modernization and scaling existing applications.' },
+];
+
+const marketingProcess = [
+    { title: 'Audit', desc: 'Analyzing your current presence and competitor landscape.' },
+    { title: 'Strategy', desc: 'Defining target audiences and campaign roadmaps.' },
+    { title: 'Execute', desc: 'Launching campaigns across selected digital channels.' },
+    { title: 'Report', desc: 'Continuous optimization based on real-time data.' },
+];
+
+const marketingFaqs = [
+    { q: 'How soon can I expect results?', a: 'SEO takes 3-6 months, while paid campaigns can show results within days.' },
+    { q: 'What metrics do you track?', a: 'We focus on ROI, conversion rates, and engagement metrics that matter to your business.' },
+    { q: 'Is the strategy customized?', a: 'Yes, every campaign is built from scratch based on your specific industry and goals.' },
+];
+
+const designProcess = [
+    { title: 'Research', desc: 'Understanding user personas and brand aspirations.' },
+    { title: 'Wireframe', desc: 'Creating structural blueprints and user flows.' },
+    { title: 'Creative', desc: 'Developing visual assets and high-fidelity mockups.' },
+    { title: 'Finalize', desc: 'Polishing details and delivering production-ready assets.' },
+];
+
+const designFaqs = [
+    { q: 'How many revisions are included?', a: 'We typically include 3 rounds of revisions to ensure the final design is perfect.' },
+    { q: 'Do I get the source files?', a: 'Yes, all original source files (Figma, Illustrator, etc.) are included in the final delivery.' },
+    { q: 'Can you work with our existing brand?', a: 'Absolutely. We can either extend your current brand or help you evolve it.' },
+];
+
+export const servicesData: Record<string, Service> = {
     // --- Application Solution ---
     "web-development": {
         title: "Web Development",
@@ -18,7 +80,9 @@ export const servicesData = {
             { title: "High Performance", description: "Fast loading speeds for better retention." }
         ],
         technologies: ["React", "Next.js", "Node.js", "Tailwind CSS"],
-        icon: Globe
+        icon: Globe,
+        process: appProcess,
+        faqs: appFaqs
     },
     "mobile-app-development": {
         title: "Mobile App Development",
@@ -32,7 +96,9 @@ export const servicesData = {
             { title: "App Store Support", description: "Assonance with deployment and updates." }
         ],
         technologies: ["React Native", "Flutter", "Swift", "Kotlin"],
-        icon: Smartphone
+        icon: Smartphone,
+        process: appProcess,
+        faqs: appFaqs
     },
     "custom-application": {
         title: "Custom Application",
@@ -46,7 +112,9 @@ export const servicesData = {
             { title: "Full Ownership", description: "You own the code and IP." }
         ],
         technologies: ["Python", "Java", ".NET", "PostgreSQL"],
-        icon: Layers
+        icon: Layers,
+        process: appProcess,
+        faqs: appFaqs
     },
     "ai-ml-development": {
         title: "AI / ML Development",
@@ -60,7 +128,9 @@ export const servicesData = {
             { title: "Computer Vision", description: "Image and video analysis solutions." }
         ],
         technologies: ["TensorFlow", "PyTorch", "Python", "OpenAI API"],
-        icon: Database
+        icon: Database,
+        process: appProcess,
+        faqs: appFaqs
     },
     "saas-application": {
         title: "SaaS Application",
@@ -74,7 +144,9 @@ export const servicesData = {
             { title: "Scalable Infrastructure", description: "Handles growth effortlessly." }
         ],
         technologies: ["AWS", "Docker", "Kubernetes", "Next.js"],
-        icon: Rocket
+        icon: Rocket,
+        process: appProcess,
+        faqs: appFaqs
     },
     "api-development": {
         title: "API Development",
@@ -88,7 +160,9 @@ export const servicesData = {
             { title: "Rate Limiting", description: "Protection and traffic management." }
         ],
         technologies: ["Node.js", "Express", "GraphQL", "Swagger"],
-        icon: Code
+        icon: Code,
+        process: appProcess,
+        faqs: appFaqs
     },
 
     // --- Digital Marketing ---
@@ -104,7 +178,9 @@ export const servicesData = {
             { title: "Link Building", description: "Authority development." }
         ],
         technologies: ["Google Analytics", "SEMrush", "Ahrefs", "Search Console"],
-        icon: Search
+        icon: Search,
+        process: marketingProcess,
+        faqs: marketingFaqs
     },
     "social-media-marketing": {
         title: "Social Media Marketing",
@@ -118,7 +194,9 @@ export const servicesData = {
             { title: "Paid Ad Campaigns", description: "Targeted reach on FB/IG/LinkedIn." }
         ],
         technologies: ["Facebook", "Instagram", "LinkedIn", "Twitter"],
-        icon: Share2
+        icon: Share2,
+        process: marketingProcess,
+        faqs: marketingFaqs
     },
     "content-strategy": {
         title: "Content Strategy",
@@ -132,7 +210,9 @@ export const servicesData = {
             { title: "Performance Analysis", description: "Tracking content impact." }
         ],
         technologies: ["WordPress", "Medium", "Canva", "HubSpot"],
-        icon: PenTool
+        icon: PenTool,
+        process: marketingProcess,
+        faqs: marketingFaqs
     },
 
     // --- Design Solution ---
@@ -148,7 +228,9 @@ export const servicesData = {
             { title: "Usability Testing", description: "Validating design decisions." }
         ],
         technologies: ["Figma", "Sketch", "Adobe XD", "InVision"],
-        icon: Layout
+        icon: Layout,
+        process: designProcess,
+        faqs: designFaqs
     },
     "brand-identity": {
         title: "Brand Identity",
@@ -162,7 +244,9 @@ export const servicesData = {
             { title: "Collateral Design", description: "Business cards, letterheads." }
         ],
         technologies: ["Illustrator", "Photoshop", "Indesign", "CorelDRAW"],
-        icon: Image
+        icon: Image,
+        process: designProcess,
+        faqs: designFaqs
     },
     "graphic-design": {
         title: "Graphic Design",
@@ -176,8 +260,11 @@ export const servicesData = {
             { title: "Packaging Design", description: "Product presentation." }
         ],
         technologies: ["Photoshop", "Illustrator", "Canva", "After Effects"],
-        icon: Briefcase
+        icon: Briefcase,
+        process: designProcess,
+        faqs: designFaqs
     }
 };
+
 
 export type ServiceSlug = keyof typeof servicesData;

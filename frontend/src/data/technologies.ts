@@ -61,7 +61,7 @@ export const techCategories: TechCategory[] = [
         accentColor: '#6366f1',
         heroIcon: '🎨',
         stats: [
-            { value: '200+', label: 'Projects Delivered' },
+            { value: '50+', label: 'Projects Delivered' },
             { value: '99%', label: 'Client Satisfaction' },
             { value: '50ms', label: 'Avg. Load Time' },
             { value: '10+', label: 'Years Experience' },
@@ -199,7 +199,6 @@ export const techCategories: TechCategory[] = [
         accentColor: '#8b5cf6',
         heroIcon: '📱',
         stats: [
-            { value: '100+', label: 'Apps Published' },
             { value: '5M+', label: 'Downloads Achieved' },
             { value: '4.8★', label: 'Avg. Store Rating' },
             { value: '12+', label: 'Platform Expertise' },
