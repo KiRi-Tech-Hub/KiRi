@@ -87,8 +87,9 @@ export default function TechnologiesMegaMenu({ isOpen, onMouseEnter, onMouseLeav
                 {/* Left Sidebar */}
                 <div className="w-1/4 bg-slate-50 dark:bg-slate-950 border-r border-slate-100 dark:border-slate-800 p-6 space-y-2">
                     {menuData.map((category) => (
-                        <button
+                        <Link
                             key={category.id}
+                            to={`/technologies/${category.id}`}
                             onMouseEnter={() => setActiveCategory(category.id)}
                             className={`w-full flex items-center justify-between p-4 rounded-lg text-left transition-all duration-200 ${activeCategory === category.id
                                 ? 'bg-blue-600 text-white shadow-md transform translate-x-1'
@@ -97,7 +98,7 @@ export default function TechnologiesMegaMenu({ isOpen, onMouseEnter, onMouseLeav
                         >
                             <span className="font-semibold text-sm">{category.label}</span>
                             {activeCategory === category.id && <ArrowRight size={16} />}
-                        </button>
+                        </Link>
                     ))}
                 </div>
 
@@ -125,7 +126,7 @@ export default function TechnologiesMegaMenu({ isOpen, onMouseEnter, onMouseLeav
 
                             {category.items.map((item, index) => (
                                 <Link
-                                    to="#"
+                                    to={`/technologies/${category.id}`}
                                     key={index}
                                     className="group block p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700 text-center"
                                 >
@@ -140,6 +141,14 @@ export default function TechnologiesMegaMenu({ isOpen, onMouseEnter, onMouseLeav
                                     </p>
                                 </Link>
                             ))}
+                            <div className="col-span-full mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
+                                <Link
+                                    to={`/technologies/${category.id}`}
+                                    className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:gap-3 transition-all duration-200"
+                                >
+                                    Explore all {category.label} <ArrowRight size={14} />
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>

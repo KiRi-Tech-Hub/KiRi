@@ -7,6 +7,7 @@ import Solutions from './pages/Solutions';
 import Industries from './pages/Industries';
 import Insights from './pages/Insights';
 import Technologies from './pages/Technologies';
+import TechCategoryPage from './pages/TechCategoryPage';
 import ServiceDetail from './pages/ServiceDetail';
 import Footer from './components/Footer';
 import SocialSidebar from './components/SocialSidebar';
@@ -26,6 +27,7 @@ function App() {
           <Route path="/industries" element={<Industries />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/technologies" element={<Technologies />} />
+          <Route path="/technologies/:slug" element={<TechCategoryPage />} />
           <Route path="/our-philosophy" element={<OurPhilosophy />} />
         </Routes>
         <ContactFormSection />
