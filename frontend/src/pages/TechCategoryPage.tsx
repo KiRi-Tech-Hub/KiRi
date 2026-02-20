@@ -1,263 +1,134 @@
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, CheckCircle2, Zap } from 'lucide-react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { getTechCategoryBySlug, techCategories } from '../data/technologies';
 import ContactFormModal from '../components/ContactFormModal';
 
-// ──────── Animation Variants ──────────────────────────────────────────────────
-const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    show: (i = 0) => ({
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.6, delay: i * 0.07 },
-    }),
+// ─── Fade-up helper ───────────────────────────────────────────────────────────
+const reveal = {
+    hidden: { opacity: 0, y: 24 },
+    show: (d = 0) => ({ opacity: 1, y: 0, transition: { duration: 0.6, delay: d } }),
 };
 
-const staggerContainer = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.07 } },
-};
+// ─────────────────────────────────────────────────────────────────────────────
+// HERO — full-viewport video background with dark overlay
+// ─────────────────────────────────────────────────────────────────────────────
+function Hero({
+    category,
+    onOpenModal,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+    onOpenModal: () => void;
+}) {
+    const { scrollY } = useScroll();
+    const y = useTransform(scrollY, [0, 600], [0, 140]);
 
-// ──────── Hero Section ────────────────────────────────────────────────────────
-function Hero({ category, onOpenModal }: { category: ReturnType<typeof getTechCategoryBySlug>; onOpenModal: () => void }) {
-    if (!category) return null;
     return (
-        <section
-            className="relative min-h-[70vh] flex flex-col items-center justify-center text-center overflow-hidden pt-24 pb-20 px-4"
-            style={{
-                background: `linear-gradient(135deg, ${category.gradientFrom}15 0%, ${category.gradientTo}15 100%)`,
-            }}
-        >
-            {/* Animated blurred blobs */}
-            <div
-                className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full opacity-20 blur-3xl pointer-events-none animate-blob"
-                style={{ background: category.gradientFrom }}
-            />
-            <div
-                className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full opacity-15 blur-3xl pointer-events-none animate-blob animation-delay-2000"
-                style={{ background: category.gradientTo }}
+        <section className="relative h-screen min-h-[700px] flex flex-col justify-end overflow-hidden">
+            {/* ── Video bg (parallax) ── */}
+            <motion.video
+                style={{ y }}
+                src="/kiri_video.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover scale-105"
             />
 
-            {/* Grid overlay */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5 pointer-events-none" />
+            {/* ── Layered dark scrim ── */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-black/20" />
+            <div
+                className="absolute inset-0 opacity-30"
+                style={{
+                    background: `linear-gradient(135deg, ${category.gradientFrom}55 0%, transparent 60%)`,
+                }}
+            />
 
-            <motion.div
-                initial="hidden"
-                animate="show"
-                variants={staggerContainer}
-                className="relative z-10 max-w-4xl mx-auto"
-            >
-                {/* Category badge */}
-                <motion.div variants={fadeUp} custom={0} className="mb-6">
+            {/* ── Bottom noise texture ── */}
+            <div
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                    backgroundSize: '200px',
+                }}
+            />
+
+            {/* ── Content ── */}
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 pb-20 w-full">
+                {/* Category label */}
+                <motion.div
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="flex items-center gap-3 mb-8"
+                >
                     <span
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold uppercase tracking-widest text-white shadow-lg"
-                        style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
+                        className="h-px w-10"
+                        style={{ background: category.gradientFrom }}
+                    />
+                    <span
+                        className="text-xs font-bold uppercase tracking-[0.2em]"
+                        style={{ color: category.gradientFrom }}
                     >
-                        <Zap size={14} />
                         {category.label}
                     </span>
                 </motion.div>
 
-                {/* Emoji icon */}
-                <motion.div variants={fadeUp} custom={1} className="text-7xl mb-6 select-none">
-                    {category.heroIcon}
-                </motion.div>
+                {/* Hero content without tagline — video speaks for itself */}
+                <div className="max-w-4xl">
 
-                {/* Tagline */}
-                <motion.h1
-                    variants={fadeUp}
-                    custom={2}
-                    className="text-5xl md:text-7xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight tracking-tight"
-                >
-                    {category.tagline}
-                </motion.h1>
-
-                {/* Description */}
-                <motion.p
-                    variants={fadeUp}
-                    custom={3}
-                    className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed mb-10"
-                >
-                    {category.description}
-                </motion.p>
-
-                {/* CTA */}
-                <motion.div variants={fadeUp} custom={4} className="flex flex-wrap gap-4 justify-center">
-                    <button
-                        onClick={onOpenModal}
-                        className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 text-base"
-                        style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                    >
-                        Start a Project <ArrowRight size={18} />
-                    </button>
-                    <Link
-                        to="/technologies"
-                        className="inline-flex items-center gap-2 px-8 py-4 rounded-full border-2 border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-200 font-semibold hover:border-slate-500 hover:-translate-y-0.5 transition-all duration-300 text-base bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm"
-                    >
-                        ← All Technologies
-                    </Link>
-                </motion.div>
-            </motion.div>
-
-            {/* Stats bar */}
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.7 }}
-                className="relative z-10 mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto w-full"
-            >
-                {category.stats.map((stat, i) => (
-                    <div
-                        key={i}
-                        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-md rounded-2xl p-5 text-center shadow-sm border border-white/60 dark:border-slate-700/60"
-                    >
-                        <div
-                            className="text-3xl font-extrabold bg-clip-text text-transparent"
-                            style={{ backgroundImage: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                        >
-                            {stat.value}
-                        </div>
-                        <div className="text-sm text-slate-500 dark:text-slate-400 mt-1 font-medium">{stat.label}</div>
-                    </div>
-                ))}
-            </motion.div>
-        </section>
-    );
-}
-
-// ──────── Tech Cards Section ──────────────────────────────────────────────────
-function TechStack({ category }: { category: ReturnType<typeof getTechCategoryBySlug> }) {
-    if (!category) return null;
-    return (
-        <section className="py-24 px-4 bg-white dark:bg-slate-950">
-            <div className="max-w-7xl mx-auto">
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={staggerContainer}
-                    className="text-center mb-16"
-                >
                     <motion.p
-                        variants={fadeUp}
-                        className="text-sm font-bold uppercase tracking-widest mb-3"
-                        style={{ color: category.accentColor }}
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.25 }}
+                        className="text-white/60 text-lg max-w-xl leading-relaxed mb-10"
                     >
-                        Our Tech Arsenal
+                        {category.description}
                     </motion.p>
-                    <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-4">
-                        Technologies We Master
-                    </motion.h2>
-                    <motion.p variants={fadeUp} className="text-slate-500 dark:text-slate-400 max-w-xl mx-auto text-lg">
-                        Battle-tested tools chosen for performance, community support, and long-term maintainability.
-                    </motion.p>
-                </motion.div>
 
+                    <motion.div
+                        initial={{ opacity: 0, y: 16 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 }}
+                        className="flex flex-wrap items-center gap-4"
+                    >
+                        <button
+                            onClick={onOpenModal}
+                            className="group flex items-center gap-2 px-7 py-3.5 rounded-full text-black bg-white font-semibold text-sm hover:bg-white/90 transition-all duration-200"
+                        >
+                            Start a Project
+                            <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                        </button>
+                        <Link
+                            to="/technologies"
+                            className="flex items-center gap-2 px-7 py-3.5 rounded-full border border-white/25 text-white font-semibold text-sm hover:border-white/50 hover:bg-white/5 transition-all duration-200"
+                        >
+                            View All
+                        </Link>
+                    </motion.div>
+                </div>
+
+                {/* ── Stats row ── */}
                 <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={staggerContainer}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.55, duration: 0.6 }}
+                    className="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-8"
                 >
-                    {category.technologies.map((tech, i) => {
-                        const Icon = tech.icon;
-                        return (
-                            <motion.div
-                                key={i}
-                                variants={fadeUp}
-                                custom={i}
-                                whileHover={{ y: -6, boxShadow: `0 20px 40px -10px ${tech.color}30` }}
-                                className="group relative bg-white dark:bg-slate-900 rounded-2xl p-6 border border-slate-100 dark:border-slate-800 cursor-pointer overflow-hidden transition-all duration-300"
+                    {category.stats.map((s, i) => (
+                        <div key={i}>
+                            <div
+                                className="text-2xl md:text-3xl font-extrabold tracking-tight"
+                                style={{ color: category.gradientFrom }}
                             >
-                                {/* Hover gradient overlay */}
-                                <div
-                                    className="absolute inset-0 opacity-0 group-hover:opacity-5 transition-opacity duration-300 rounded-2xl"
-                                    style={{ background: tech.color }}
-                                />
-
-                                <div className="flex items-start gap-4">
-                                    {/* Icon */}
-                                    <div
-                                        className="flex-shrink-0 w-14 h-14 rounded-xl flex items-center justify-center shadow-sm group-hover:scale-110 transition-transform duration-300"
-                                        style={{ backgroundColor: `${tech.color}15`, border: `1.5px solid ${tech.color}30` }}
-                                    >
-                                        <Icon size={30} style={{ color: tech.color }} />
-                                    </div>
-
-                                    <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <h3 className="font-bold text-slate-900 dark:text-white text-base">{tech.name}</h3>
-                                            {tech.tag && (
-                                                <span
-                                                    className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white uppercase tracking-wide flex-shrink-0"
-                                                    style={{ background: category.accentColor }}
-                                                >
-                                                    {tech.tag}
-                                                </span>
-                                            )}
-                                        </div>
-                                        <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{tech.description}</p>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        );
-                    })}
-                </motion.div>
-            </div>
-        </section>
-    );
-}
-
-// ──────── Use Cases Section ───────────────────────────────────────────────────
-function UseCases({ category }: { category: ReturnType<typeof getTechCategoryBySlug> }) {
-    if (!category) return null;
-    return (
-        <section
-            className="py-24 px-4"
-            style={{ background: `linear-gradient(135deg, ${category.gradientFrom}08 0%, ${category.gradientTo}08 100%)` }}
-        >
-            <div className="max-w-7xl mx-auto">
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={staggerContainer}
-                    className="text-center mb-16"
-                >
-                    <motion.p
-                        variants={fadeUp}
-                        className="text-sm font-bold uppercase tracking-widest mb-3"
-                        style={{ color: category.accentColor }}
-                    >
-                        What We Build
-                    </motion.p>
-                    <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">
-                        Real-World Use Cases
-                    </motion.h2>
-                </motion.div>
-
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.1 }}
-                    variants={staggerContainer}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-                >
-                    {category.useCases.map((uc, i) => (
-                        <motion.div
-                            key={i}
-                            variants={fadeUp}
-                            custom={i}
-                            whileHover={{ y: -4, scale: 1.02 }}
-                            className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all duration-300 group"
-                        >
-                            <div className="text-4xl mb-4 group-hover:scale-125 transition-transform duration-300">{uc.icon}</div>
-                            <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-3">{uc.title}</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{uc.description}</p>
-                        </motion.div>
+                                {s.value}
+                            </div>
+                            <div className="text-white/40 text-xs uppercase tracking-wider mt-1 font-medium">
+                                {s.label}
+                            </div>
+                        </div>
                     ))}
                 </motion.div>
             </div>
@@ -265,139 +136,256 @@ function UseCases({ category }: { category: ReturnType<typeof getTechCategoryByS
     );
 }
 
-// ──────── Why Choose Section ──────────────────────────────────────────────────
-function WhyChoose({ category, onOpenModal }: { category: ReturnType<typeof getTechCategoryBySlug>; onOpenModal: () => void }) {
-    if (!category) return null;
+// ─────────────────────────────────────────────────────────────────────────────
+// TECH STACK — horizontal scrolling ticker + detailed grid
+// ─────────────────────────────────────────────────────────────────────────────
+function TechStack({
+    category,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+}) {
     return (
-        <section className="py-24 px-4 bg-white dark:bg-slate-950">
-            <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    {/* Left: Text */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -40 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                    >
-                        <p
-                            className="text-sm font-bold uppercase tracking-widest mb-4"
+        <section className="bg-white dark:bg-[#0c0c0e] border-b border-slate-100 dark:border-white/[0.06]">
+            {/* Section header */}
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                    <div>
+                        <div
+                            className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
                             style={{ color: category.accentColor }}
                         >
-                            Our Advantage
-                        </p>
-                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6 leading-tight">
-                            Why Choose KiRi for {category.label}?
+                            01 / Stack
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                            Technologies<br />We Master
                         </h2>
-                        <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed mb-10">
-                            We don't just write code—we engineer solutions that stand the test of time, scale with your ambitions, and delight your users.
+                    </div>
+                    <p className="text-slate-500 dark:text-slate-400 max-w-xs text-sm leading-relaxed">
+                        Every tool is chosen for performance, ecosystem maturity, and long-term maintainability.
+                    </p>
+                </div>
+
+                {/* Tech grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {category.technologies.map((tech, i) => {
+                        const Icon = tech.icon;
+                        return (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: i * 0.04 }}
+                                className="group flex items-center gap-4 p-4 rounded-xl border border-slate-100 dark:border-white/[0.07] hover:border-slate-300 dark:hover:border-white/[0.16] bg-slate-50/50 dark:bg-white/[0.02] hover:bg-white dark:hover:bg-white/[0.05] transition-all duration-200 cursor-default"
+                            >
+                                {/* Icon */}
+                                <div
+                                    className="w-11 h-11 rounded-lg flex-shrink-0 flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                                    style={{ background: `${tech.color}18` }}
+                                >
+                                    <Icon size={22} style={{ color: tech.color }} />
+                                </div>
+
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex items-center gap-2">
+                                        <span className="font-semibold text-slate-900 dark:text-white text-sm">{tech.name}</span>
+                                        {tech.tag && (
+                                            <span
+                                                className="text-[9px] font-bold px-1.5 py-0.5 rounded-full text-white uppercase tracking-wide leading-none"
+                                                style={{ background: category.accentColor }}
+                                            >
+                                                {tech.tag}
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-slate-400 dark:text-slate-500 text-xs mt-0.5 leading-snug truncate">
+                                        {tech.description}
+                                    </p>
+                                </div>
+                            </motion.div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// USE CASES — editorial two-column bento style
+// ─────────────────────────────────────────────────────────────────────────────
+function UseCases({
+    category,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+}) {
+    return (
+        <section className="bg-[#f8f8fb] dark:bg-[#0c0c0e] border-b border-slate-100 dark:border-white/[0.06]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                    <div>
+                        <div
+                            className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
+                            style={{ color: category.accentColor }}
+                        >
+                            02 / Use Cases
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                            What We Build
+                        </h2>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {category.useCases.map((uc, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: i * 0.06 }}
+                            className="group relative flex gap-5 p-6 rounded-2xl bg-white dark:bg-white/[0.04] border border-slate-100 dark:border-white/[0.07] hover:border-slate-200 dark:hover:border-white/[0.14] hover:shadow-lg dark:hover:shadow-none transition-all duration-200 overflow-hidden"
+                        >
+                            {/* Numbered index */}
+                            <div
+                                className="absolute top-5 right-5 text-[10px] font-black tabular-nums opacity-20 select-none"
+                                style={{ color: category.accentColor }}
+                            >
+                                {String(i + 1).padStart(2, '0')}
+                            </div>
+
+                            {/* Icon */}
+                            <div
+                                className="w-12 h-12 rounded-xl flex-shrink-0 flex items-center justify-center text-xl mt-0.5"
+                                style={{ background: `${category.gradientFrom}14` }}
+                            >
+                                {uc.icon}
+                            </div>
+
+                            <div>
+                                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-1.5">{uc.title}</h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{uc.description}</p>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// WHY CHOOSE — full-width dark section with feature columns
+// ─────────────────────────────────────────────────────────────────────────────
+function WhyChoose({
+    category,
+    onOpenModal,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+    onOpenModal: () => void;
+}) {
+    return (
+        <section className="bg-[#0c0c0e] border-b border-white/[0.06]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                {/* Header row */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start mb-16">
+                    <div>
+                        <div
+                            className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
+                            style={{ color: category.accentColor }}
+                        >
+                            03 / Why KiRi
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+                            The KiRi<br />Advantage
+                        </h2>
+                    </div>
+                    <div className="flex flex-col justify-between gap-8">
+                        <p className="text-white/50 text-base leading-relaxed">
+                            We don't just deliver code — we engineer high-quality, scalable products that grow with your business. Every decision is made with precision and purpose.
                         </p>
                         <button
                             onClick={onOpenModal}
-                            className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-white font-semibold hover:-translate-y-0.5 transition-all duration-300 text-base shadow-lg"
-                            style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
+                            className="group self-start flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white text-sm font-semibold hover:bg-white hover:text-black transition-all duration-200"
                         >
-                            Talk to an Expert <ArrowRight size={18} />
+                            Talk to an Expert
+                            <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform" />
                         </button>
-                    </motion.div>
+                    </div>
+                </div>
 
-                    {/* Right: Feature grid */}
+                {/* Feature grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.07] rounded-2xl overflow-hidden border border-white/[0.07]">
+                    {category.whyChoose.map((point, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.4, delay: i * 0.05 }}
+                            className="bg-[#0c0c0e] p-7 group hover:bg-white/[0.04] transition-colors duration-200"
+                        >
+                            <div
+                                className="text-xs font-black tabular-nums mb-4 opacity-40"
+                                style={{ color: category.accentColor }}
+                            >
+                                {String(i + 1).padStart(2, '0')}
+                            </div>
+                            <h4 className="font-bold text-white text-base mb-2">{point.title}</h4>
+                            <p className="text-white/40 text-sm leading-relaxed">{point.description}</p>
+                        </motion.div>
+                    ))}
+
+                    {/* Static bonus box 1 */}
                     <motion.div
-                        initial="hidden"
-                        whileInView="show"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
                         viewport={{ once: true }}
-                        variants={staggerContainer}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+                        transition={{ duration: 0.4, delay: category.whyChoose.length * 0.05 }}
+                        className="bg-[#0c0c0e] p-7 group hover:bg-white/[0.04] transition-colors duration-200 relative overflow-hidden"
                     >
-                        {category.whyChoose.map((point, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeUp}
-                                custom={i}
-                                className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-600 transition-all duration-300 group"
-                            >
-                                <div
-                                    className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300"
-                                    style={{ backgroundColor: `${category.accentColor}15` }}
-                                >
-                                    <CheckCircle2 size={20} style={{ color: category.accentColor }} />
-                                </div>
-                                <h4 className="font-bold text-slate-900 dark:text-white mb-2 text-base">{point.title}</h4>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{point.description}</p>
-                            </motion.div>
-                        ))}
+                        <div
+                            className="text-xs font-black tabular-nums mb-4 opacity-40"
+                            style={{ color: category.accentColor }}
+                        >
+                            {String(category.whyChoose.length + 1).padStart(2, '0')}
+                        </div>
+                        <h4 className="font-bold text-white text-base mb-2">On-Time Delivery</h4>
+                        <p className="text-white/40 text-sm leading-relaxed">
+                            We set realistic milestones and respect deadlines. Sprints are planned, tracked, and shipped — every time.
+                        </p>
+                        <div
+                            className="absolute bottom-5 right-5 text-[42px] font-black leading-none opacity-[0.06] select-none"
+                            style={{ color: category.accentColor }}
+                        >
+                            ⏱
+                        </div>
                     </motion.div>
-                </div>
-            </div>
-        </section>
-    );
-}
 
-// ──────── Process Section ─────────────────────────────────────────────────────
-function Process({ category }: { category: ReturnType<typeof getTechCategoryBySlug> }) {
-    if (!category) return null;
-    return (
-        <section
-            className="py-24 px-4 overflow-hidden"
-            style={{ background: `linear-gradient(135deg, ${category.gradientFrom}10 0%, ${category.gradientTo}10 100%)` }}
-        >
-            <div className="max-w-7xl mx-auto">
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={staggerContainer}
-                    className="text-center mb-16"
-                >
-                    <motion.p
-                        variants={fadeUp}
-                        className="text-sm font-bold uppercase tracking-widest mb-3"
-                        style={{ color: category.accentColor }}
-                    >
-                        How We Work
-                    </motion.p>
-                    <motion.h2 variants={fadeUp} className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white">
-                        Our Proven Process
-                    </motion.h2>
-                </motion.div>
-
-                <div className="relative">
-                    {/* Connecting line (desktop) */}
-                    <div
-                        className="hidden lg:block absolute top-12 left-[12.5%] right-[12.5%] h-0.5 opacity-20"
-                        style={{ background: `linear-gradient(90deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                    />
-
+                    {/* Static bonus box 2 */}
                     <motion.div
-                        initial="hidden"
-                        whileInView="show"
-                        viewport={{ once: true, amount: 0.1 }}
-                        variants={staggerContainer}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.4, delay: (category.whyChoose.length + 1) * 0.05 }}
+                        className="bg-[#0c0c0e] p-7 group hover:bg-white/[0.04] transition-colors duration-200 relative overflow-hidden"
                     >
-                        {category.processSteps.map((step, i) => (
-                            <motion.div
-                                key={i}
-                                variants={fadeUp}
-                                custom={i}
-                                className="relative text-center group"
-                            >
-                                {/* Step number circle */}
-                                <div className="relative mx-auto w-24 h-24 mb-6">
-                                    <div
-                                        className="absolute inset-0 rounded-full opacity-20 group-hover:opacity-40 transition-opacity duration-300 animate-pulse-slow"
-                                        style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                                    />
-                                    <div
-                                        className="absolute inset-2 rounded-full flex items-center justify-center text-white font-black text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300"
-                                        style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                                    >
-                                        {step.step}
-                                    </div>
-                                </div>
-                                <h3 className="font-bold text-slate-900 dark:text-white text-lg mb-3">{step.title}</h3>
-                                <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-xs mx-auto">{step.description}</p>
-                            </motion.div>
-                        ))}
+                        <div
+                            className="text-xs font-black tabular-nums mb-4 opacity-40"
+                            style={{ color: category.accentColor }}
+                        >
+                            {String(category.whyChoose.length + 2).padStart(2, '0')}
+                        </div>
+                        <h4 className="font-bold text-white text-base mb-2">Long-Term Partnership</h4>
+                        <p className="text-white/40 text-sm leading-relaxed">
+                            We don't disappear after launch. We stay invested in your product's evolution, scaling and improving as you grow.
+                        </p>
+                        <div
+                            className="absolute bottom-5 right-5 text-[42px] font-black leading-none opacity-[0.06] select-none"
+                            style={{ color: category.accentColor }}
+                        >
+                            🤝
+                        </div>
                     </motion.div>
                 </div>
             </div>
@@ -405,124 +393,199 @@ function Process({ category }: { category: ReturnType<typeof getTechCategoryBySl
     );
 }
 
-// ──────── Related Categories Nav ──────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// PROCESS — clean horizontal timeline
+// ─────────────────────────────────────────────────────────────────────────────
+function Process({
+    category,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+}) {
+    return (
+        <section className="bg-white dark:bg-[#0c0c0e] border-b border-slate-100 dark:border-white/[0.06]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                    <div>
+                        <div
+                            className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
+                            style={{ color: category.accentColor }}
+                        >
+                            04 / Process
+                        </div>
+                        <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                            How We Deliver
+                        </h2>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+                    {category.processSteps.map((step, i) => (
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.45, delay: i * 0.07 }}
+                            className="relative group pl-0 pr-8 py-8 border-l border-slate-100 dark:border-white/[0.07] first:border-l-0 sm:first:border-l sm:pl-8"
+                        >
+                            {/* Accent dot on the border */}
+                            <div
+                                className="absolute -left-[5px] top-8 w-2.5 h-2.5 rounded-full border-2 border-white dark:border-[#0c0c0e] transition-transform duration-200 group-hover:scale-125"
+                                style={{ background: category.gradientFrom }}
+                            />
+
+                            <div
+                                className="text-[10px] font-black uppercase tracking-widest mb-4 opacity-50"
+                                style={{ color: category.accentColor }}
+                            >
+                                Step {step.step}
+                            </div>
+                            <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2 leading-snug">
+                                {step.title}
+                            </h3>
+                            <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed">
+                                {step.description}
+                            </p>
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RELATED CATEGORIES — minimal pills row
+// ─────────────────────────────────────────────────────────────────────────────
 function RelatedCategories({ currentSlug }: { currentSlug: string }) {
     const others = techCategories.filter((c) => c.slug !== currentSlug);
     return (
-        <section className="py-20 px-4 bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
-            <div className="max-w-7xl mx-auto">
-                <motion.div
-                    initial="hidden"
-                    whileInView="show"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={staggerContainer}
-                >
-                    <motion.h2
-                        variants={fadeUp}
-                        className="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-10 text-center"
-                    >
-                        Explore Other Technologies
-                    </motion.h2>
-                    <motion.div
-                        variants={staggerContainer}
-                        className="flex flex-wrap justify-center gap-4"
-                    >
-                        {others.map((cat, i) => (
-                            <motion.div key={cat.id} variants={fadeUp} custom={i}>
-                                <Link
-                                    to={`/technologies/${cat.slug}`}
-                                    className="group inline-flex items-center gap-3 px-6 py-4 rounded-2xl border-2 border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 font-semibold text-slate-700 dark:text-slate-200"
-                                >
-                                    <span className="text-2xl">{cat.heroIcon}</span>
-                                    {cat.label}
-                                    <ArrowRight size={16} className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" />
-                                </Link>
-                            </motion.div>
+        <section className="bg-[#f8f8fb] dark:bg-[#0c0c0e] border-b border-slate-100 dark:border-white/[0.06]">
+            <div className="max-w-7xl mx-auto px-6 lg:px-12 py-14">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400 whitespace-nowrap">
+                        Explore areas
+                    </span>
+                    <div className="flex flex-wrap gap-3">
+                        {others.map((cat) => (
+                            <Link
+                                key={cat.id}
+                                to={`/technologies/${cat.slug}`}
+                                className="group inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200 dark:border-white/[0.1] bg-white dark:bg-white/[0.03] hover:border-slate-400 dark:hover:border-white/30 hover:shadow-sm text-slate-700 dark:text-slate-300 text-sm font-medium transition-all duration-200"
+                            >
+                                {cat.label}
+                                <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+                            </Link>
                         ))}
-                    </motion.div>
-                </motion.div>
+                    </div>
+                </div>
             </div>
         </section>
     );
 }
 
-// ──────── CTA Banner ──────────────────────────────────────────────────────────
-function CTABanner({ category, onOpenModal }: { category: ReturnType<typeof getTechCategoryBySlug>; onOpenModal: () => void }) {
-    if (!category) return null;
+// ─────────────────────────────────────────────────────────────────────────────
+// CTA — full-width dark strip with horizontal layout
+// ─────────────────────────────────────────────────────────────────────────────
+function CTABanner({
+    category,
+    onOpenModal,
+}: {
+    category: NonNullable<ReturnType<typeof getTechCategoryBySlug>>;
+    onOpenModal: () => void;
+}) {
     return (
-        <section className="py-20 px-4 bg-slate-900 dark:bg-black relative overflow-hidden">
-            {/* Gradient blobs */}
+        <section className="relative bg-[#0c0c0e] overflow-hidden">
+            {/* Subtle color wash */}
             <div
-                className="absolute -top-32 -left-32 w-96 h-96 rounded-full opacity-30 blur-3xl pointer-events-none"
-                style={{ background: category.gradientFrom }}
-            />
-            <div
-                className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full opacity-20 blur-3xl pointer-events-none"
-                style={{ background: category.gradientTo }}
+                className="absolute inset-0 opacity-[0.07] pointer-events-none"
+                style={{
+                    background: `linear-gradient(135deg, ${category.gradientFrom} 0%, ${category.gradientTo} 100%)`,
+                }}
             />
 
-            <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7 }}
-                className="relative z-10 max-w-3xl mx-auto text-center"
-            >
-                <div className="text-6xl mb-6">{category.heroIcon}</div>
-                <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6">
-                    Ready to Build with {category.label}?
-                </h2>
-                <p className="text-slate-300 text-lg mb-10">
-                    Let's turn your vision into a world-class {category.label.toLowerCase()} product. Our team is ready to start.
-                </p>
-                <button
-                    onClick={onOpenModal}
-                    className="inline-flex items-center gap-2 px-10 py-5 rounded-full text-white font-bold text-lg shadow-2xl hover:-translate-y-1 hover:shadow-3xl transition-all duration-300"
-                    style={{ background: `linear-gradient(135deg, ${category.gradientFrom}, ${category.gradientTo})` }}
-                >
-                    Get a Free Consultation <ArrowRight size={20} />
-                </button>
-            </motion.div>
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 py-20">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+                    {/* Left */}
+                    <div className="max-w-xl">
+                        <motion.div
+                            initial={reveal.hidden}
+                            whileInView={reveal.show(0)}
+                            viewport={{ once: true }}
+                        >
+                            <div
+                                className="text-[10px] font-bold uppercase tracking-[0.22em] mb-4"
+                                style={{ color: category.accentColor }}
+                            >
+                                Get started
+                            </div>
+                            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                                Ready to build with{' '}
+                                <span
+                                    className="bg-clip-text text-transparent"
+                                    style={{
+                                        backgroundImage: `linear-gradient(90deg, ${category.gradientFrom}, ${category.gradientTo})`,
+                                    }}
+                                >
+                                    {category.label}?
+                                </span>
+                            </h2>
+                            <p className="text-white/40 text-base leading-relaxed">
+                                Our team of specialists is ready to scope, build, and ship your product — on time.
+                            </p>
+                        </motion.div>
+                    </div>
+
+                    {/* Right */}
+                    <motion.div
+                        className="flex flex-col sm:flex-row gap-4"
+                        initial={reveal.hidden}
+                        whileInView={reveal.show(0.1)}
+                        viewport={{ once: true }}
+                    >
+                        <button
+                            onClick={onOpenModal}
+                            className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full text-black bg-white font-semibold text-sm hover:bg-white/90 transition-colors duration-200 whitespace-nowrap"
+                        >
+                            Get a Free Consultation
+                            <ArrowRight size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                        </button>
+                        <Link
+                            to="/technologies"
+                            className="flex items-center justify-center gap-2 px-8 py-4 rounded-full border border-white/20 text-white font-semibold text-sm hover:border-white/40 hover:bg-white/5 transition-all duration-200 whitespace-nowrap"
+                        >
+                            View All Technologies
+                        </Link>
+                    </motion.div>
+                </div>
+            </div>
         </section>
     );
 }
 
-// ──────── Main Page ───────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────
+// PAGE SHELL
+// ─────────────────────────────────────────────────────────────────────────────
 export default function TechCategoryPage() {
     const { slug } = useParams<{ slug: string }>();
     const category = getTechCategoryBySlug(slug ?? '');
     const [modalOpen, setModalOpen] = useState(false);
 
-    if (!category) {
-        return <Navigate to="/technologies" replace />;
-    }
+    if (!category) return <Navigate to="/technologies" replace />;
+
+    const open = () => setModalOpen(true);
+    const close = () => setModalOpen(false);
 
     return (
-        <div className="min-h-screen bg-slate-50 dark:bg-slate-950">
-            <style>{`
-                @keyframes blob {
-                    0%, 100% { transform: translate(0, 0) scale(1); }
-                    33% { transform: translate(30px, -30px) scale(1.05); }
-                    66% { transform: translate(-20px, 20px) scale(0.97); }
-                }
-                .animate-blob { animation: blob 10s ease-in-out infinite; }
-                .animation-delay-2000 { animation-delay: 2s; }
-                @keyframes pulse-slow {
-                    0%, 100% { opacity: 0.2; transform: scale(1); }
-                    50% { opacity: 0.35; transform: scale(1.05); }
-                }
-                .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
-            `}</style>
-
-            <Hero category={category} onOpenModal={() => setModalOpen(true)} />
+        <div className="min-h-screen">
+            <Hero category={category} onOpenModal={open} />
             <TechStack category={category} />
             <UseCases category={category} />
-            <WhyChoose category={category} onOpenModal={() => setModalOpen(true)} />
+            <WhyChoose category={category} onOpenModal={open} />
             <Process category={category} />
             <RelatedCategories currentSlug={slug ?? ''} />
-            <CTABanner category={category} onOpenModal={() => setModalOpen(true)} />
-
-            <ContactFormModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+            <CTABanner category={category} onOpenModal={open} />
+            <ContactFormModal isOpen={modalOpen} onClose={close} />
         </div>
     );
 }
