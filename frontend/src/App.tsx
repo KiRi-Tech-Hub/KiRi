@@ -12,6 +12,12 @@ import ServiceDetail from './pages/ServiceDetail';
 import Footer from './components/Footer';
 import SocialSidebar from './components/SocialSidebar';
 import ContactFormSection from './components/ContactFormSection';
+import AboutUs from './pages/AboutUs';
+import Portfolio from './pages/Portfolio';
+import Blog from './pages/Blog';
+import BlogPost from './pages/BlogPost';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
 
 function App() {
   return (
@@ -29,6 +35,13 @@ function App() {
           <Route path="/technologies" element={<Technologies />} />
           <Route path="/technologies/:slug" element={<TechCategoryPage />} />
           <Route path="/our-philosophy" element={<OurPhilosophy />} />
+          {/* Insights sub-pages */}
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/contact-us" element={<Contact />} />
         </Routes>
         <ContactFormSection />
         <Footer />

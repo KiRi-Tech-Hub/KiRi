@@ -1,32 +1,42 @@
-import { Info, FileText, Briefcase, UserPlus, Phone, Lightbulb } from 'lucide-react';
+import { Info, Briefcase, UserPlus, Phone, Lightbulb, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const insightsData = [
     {
         title: 'About Us',
-        description: 'Discover our mission and expertise in delivering unique application, digital marketing, and design solutions.',
-        icon: Info
+        description: 'Our story, mission, values, and the team behind KiRi.',
+        icon: Info,
+        href: '/about',
+        color: '#6366f1',
     },
     {
-        title: 'Blogs',
-        description: 'Follow blog for insights, tips, & trends in digital marketing.',
-        icon: FileText
+        title: 'Blog',
+        description: 'Engineering deep-dives, product thinking, and design insights.',
+        icon: BookOpen,
+        href: '/blog',
+        color: '#3b82f6',
     },
     {
         title: 'Portfolio',
-        description: 'Explore portfolio showcasing our success stories.',
-        icon: Briefcase
+        description: "A curated showcase of the products and platforms we've built.",
+        icon: Briefcase,
+        href: '/portfolio',
+        color: '#ec4899',
     },
     {
-        title: 'Career',
-        description: 'Join us and build career in app development, tech, & marketing.',
-        icon: UserPlus
+        title: 'Careers',
+        description: 'Join a small team doing ambitious work. 6 roles open.',
+        icon: UserPlus,
+        href: '/careers',
+        color: '#22c55e',
     },
     {
         title: 'Contact',
-        description: 'Connect with us and take your business to the next level.',
-        icon: Phone
-    }
+        description: 'Start a conversation — we respond within a few hours.',
+        icon: Phone,
+        href: '/contact-us',
+        color: '#f59e0b',
+    },
 ];
 
 interface InsightsMegaMenuProps {
@@ -58,19 +68,22 @@ export default function InsightsMegaMenu({ isOpen, onMouseEnter, onMouseLeave }:
                         <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Insights</h3>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 max-w-4xl">
                         {insightsData.map((item, index) => (
                             <Link
-                                to="#"
+                                to={item.href}
                                 key={index}
                                 className="group block p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
                             >
                                 <div className="flex items-start gap-4">
-                                    <div className="flex-shrink-0 mt-1 text-blue-600 dark:text-blue-500 group-hover:scale-110 transition-transform duration-300">
-                                        <item.icon size={24} />
+                                    <div
+                                        className="flex-shrink-0 mt-0.5 w-9 h-9 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300"
+                                        style={{ background: `${item.color}18` }}
+                                    >
+                                        <item.icon size={18} style={{ color: item.color }} />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-slate-900 dark:text-white mb-2 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                                        <h4 className="font-bold text-slate-900 dark:text-white mb-1 text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                             {item.title}
                                         </h4>
                                         <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
