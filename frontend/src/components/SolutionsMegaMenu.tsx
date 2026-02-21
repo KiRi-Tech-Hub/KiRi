@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, ShoppingCart, Truck, Car, CreditCard, Activity, Star, Heart, Users, Building, Briefcase, Factory, Shield } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const menuData = [
+export const solutionsMenuData = [
     {
         id: 'app-solutions',
         label: 'App Solutions',
@@ -116,7 +116,7 @@ export default function SolutionsMegaMenu({ isOpen, onMouseEnter, onMouseLeave }
             <div className="max-w-7xl mx-auto flex min-h-[400px]">
                 {/* Left Sidebar */}
                 <div className="w-1/4 bg-slate-50 dark:bg-slate-950 border-r border-slate-100 dark:border-slate-800 p-6 space-y-2">
-                    {menuData.map((category) => (
+                    {solutionsMenuData.map((category) => (
                         <button
                             key={category.id}
                             onMouseEnter={() => setActiveCategory(category.id)}
@@ -140,7 +140,7 @@ export default function SolutionsMegaMenu({ isOpen, onMouseEnter, onMouseLeave }
                         </span>
                     </div>
 
-                    {menuData.map((category) => (
+                    {solutionsMenuData.map((category) => (
                         <div
                             key={category.id}
                             className={`absolute inset-0 p-8 grid grid-cols-2 md:grid-cols-4 gap-8 content-start transition-all duration-300 ${activeCategory === category.id

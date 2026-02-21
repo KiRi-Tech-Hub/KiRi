@@ -57,8 +57,8 @@ export default function AboutUs() {
             ══════════════════════════════════════════════ */}
             <section
                 ref={heroRef}
-                className="relative bg-[#080809] overflow-hidden"
-                style={{ minHeight: '100vh' }}
+                className="relative bg-[#080809] overflow-hidden min-h-[100dvh] transition-colors"
+                style={{ minHeight: '100dvh' }}
             >
                 {/* Background video — screen blend makes brights visible on dark bg */}
                 <video
@@ -77,7 +77,7 @@ export default function AboutUs() {
 
                 <motion.div
                     style={{ y: heroY, opacity: heroOpacity }}
-                    className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 h-screen flex flex-col justify-center"
+                    className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 min-h-[calc(100dvh-80px)] flex flex-col justify-center py-12 md:py-0"
                 >
                     <div className="grid grid-cols-1 gap-12">
                         {/* Left — headline */}
@@ -86,7 +86,7 @@ export default function AboutUs() {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.5 }}
-                                className="text-[9px] font-black uppercase tracking-[0.32em] text-white/35 mb-8 flex items-center gap-3"
+                                className="text-[9px] font-black uppercase tracking-[0.32em] text-white/35 mb-6 md:mb-8 flex items-center gap-3"
                             >
                                 <span className="w-6 h-[1px] bg-white/30 inline-block" />
                                 KiRi Tech Hub · Est. 2023
@@ -96,8 +96,8 @@ export default function AboutUs() {
                                 initial={{ opacity: 0, y: 24 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.65, delay: 0.08 }}
-                                className="font-extrabold text-white leading-[1.08] tracking-[-0.025em] mb-6"
-                                style={{ fontSize: 'clamp(2rem, 4.5vw, 3.8rem)' }}
+                                className="font-extrabold text-white leading-[1.1] tracking-[-0.025em] mb-6"
+                                style={{ fontSize: 'clamp(2.5rem, 8vw, 3.8rem)' }}
                             >
                                 We engineer digital<br />
                                 products{' '}
@@ -124,14 +124,14 @@ export default function AboutUs() {
                             >
                                 <Link
                                     to="/contact-us"
-                                    className="group inline-flex items-center gap-2 px-6 py-3 bg-white text-black text-sm font-bold rounded-full hover:bg-white/90 transition-colors"
+                                    className="group inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-black text-sm font-bold rounded-full hover:bg-white/90 transition-colors w-full sm:w-auto"
                                 >
                                     Work with us
                                     <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                                 </Link>
                                 <Link
                                     to="/portfolio"
-                                    className="inline-flex items-center gap-2 px-6 py-3 border border-white/20 text-white/70 text-sm font-semibold rounded-full hover:border-white/40 hover:text-white transition-all"
+                                    className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-white/20 text-white/70 text-sm font-semibold rounded-full hover:border-white/40 hover:text-white transition-all w-full sm:w-auto"
                                 >
                                     See our work <ArrowUpRight size={13} />
                                 </Link>
@@ -149,8 +149,8 @@ export default function AboutUs() {
                 02 — MANIFESTO  (giant statement)
             ══════════════════════════════════════════════ */}
             <section className="bg-white dark:bg-[#080809] border-t border-b border-slate-100 dark:border-white/[0.06] overflow-hidden">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-28">
-                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16 items-start">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-28">
+                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 md:gap-16 items-start">
                         <div className="lg:pt-3">
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400 block mb-1">Our belief</span>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 dark:text-white/15">§ 001</span>
@@ -163,15 +163,15 @@ export default function AboutUs() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.55, delay: i * 0.08 }}
-                                    className={`border-b border-slate-100 dark:border-white/[0.06] py-5 flex items-center justify-between group cursor-default ${i % 2 === 0
+                                    className={`border-b border-slate-100 dark:border-white/[0.06] py-4 md:py-5 flex items-center justify-between group cursor-default ${i % 2 === 0
                                         ? 'text-slate-900 dark:text-white'
                                         : 'text-slate-400 dark:text-white/30'
                                         }`}
                                 >
-                                    <span className="text-[clamp(1.6rem,4vw,3rem)] font-extrabold tracking-tight leading-none group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200">
+                                    <span className="text-[clamp(1.2rem,6vw,3rem)] font-extrabold tracking-tight leading-tight group-hover:text-indigo-500 dark:group-hover:text-indigo-400 transition-colors duration-200 pr-4">
                                         {line}
                                     </span>
-                                    <span className="text-xs font-mono text-slate-200 dark:text-white/10 tabular-nums">
+                                    <span className="text-[10px] md:text-xs font-mono text-slate-200 dark:text-white/10 tabular-nums">
                                         {String(i + 1).padStart(2, '0')}
                                     </span>
                                 </motion.div>
@@ -185,12 +185,12 @@ export default function AboutUs() {
                 03 — TIMELINE
             ══════════════════════════════════════════════ */}
             <section className="bg-slate-50 dark:bg-[#0a0a0c] border-b border-slate-100 dark:border-white/[0.06]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-28">
-                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-28">
+                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 md:gap-16">
                         <div>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400 block mb-1">Our story</span>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 dark:text-white/15">§ 002</span>
-                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-6 max-w-[160px]">
+                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-4 md:mt-6 max-w-[160px]">
                                 Two years of compounding craft.
                             </p>
                         </div>
@@ -202,7 +202,7 @@ export default function AboutUs() {
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: i * 0.06 }}
-                                    className="grid grid-cols-[80px_1fr] gap-8 border-b border-slate-100 dark:border-white/[0.06] py-7 group hover:bg-slate-100/60 dark:hover:bg-white/[0.02] -mx-4 px-4 transition-colors"
+                                    className="grid grid-cols-1 sm:grid-cols-[80px_1fr] gap-4 sm:gap-8 border-b border-slate-100 dark:border-white/[0.06] py-7 group hover:bg-slate-100/60 dark:hover:bg-white/[0.02] sm:-mx-4 px-4 transition-colors"
                                 >
                                     <div className="font-mono text-xs font-black text-indigo-500 dark:text-indigo-400 pt-1 uppercase tracking-widest">
                                         {item.year}
@@ -222,12 +222,12 @@ export default function AboutUs() {
                 04 — PRINCIPLES  (numbered list)
             ══════════════════════════════════════════════ */}
             <section className="bg-white dark:bg-[#080809] border-b border-slate-100 dark:border-white/[0.06]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-28">
-                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-28">
+                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 md:gap-16">
                         <div>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400 block mb-1">Principles</span>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 dark:text-white/15">§ 003</span>
-                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-6 max-w-[160px]">
+                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-4 md:mt-6 max-w-[160px]">
                                 The operating model behind every project we take on.
                             </p>
                         </div>
@@ -239,7 +239,7 @@ export default function AboutUs() {
                                     whileInView={{ opacity: 1, y: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.4, delay: i * 0.05 }}
-                                    className="grid grid-cols-[48px_1fr] gap-8 border-b border-slate-100 dark:border-white/[0.06] py-7 group"
+                                    className="grid grid-cols-[32px_1fr] md:grid-cols-[48px_1fr] gap-6 md:gap-8 border-b border-slate-100 dark:border-white/[0.06] py-7 group"
                                 >
                                     <div className="font-mono text-[10px] font-black text-slate-300 dark:text-white/15 pt-1 tabular-nums">
                                         {p.index}
@@ -261,12 +261,12 @@ export default function AboutUs() {
                 05 — TEAM
             ══════════════════════════════════════════════ */}
             <section className="bg-slate-50 dark:bg-[#0a0a0c] border-b border-slate-100 dark:border-white/[0.06]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-28">
-                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-16">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-28">
+                    <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-10 md:gap-16">
                         <div>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400 block mb-1">The team</span>
                             <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300 dark:text-white/15">§ 004</span>
-                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-6 max-w-[160px]">
+                            <p className="text-slate-400 dark:text-white/30 text-xs leading-relaxed mt-4 md:mt-6 max-w-[160px]">
                                 Small by design. Every person here is a senior practitioner.
                             </p>
                         </div>
@@ -278,11 +278,11 @@ export default function AboutUs() {
                                     whileInView={{ opacity: 1 }}
                                     viewport={{ once: true }}
                                     transition={{ duration: 0.35, delay: i * 0.06 }}
-                                    className="bg-white dark:bg-[#0a0a0c] p-10 group hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors"
+                                    className="bg-white dark:bg-[#0a0a0c] p-8 md:p-10 group hover:bg-slate-50 dark:hover:bg-white/[0.03] transition-colors"
                                 >
                                     {/* Initials block */}
                                     <div
-                                        className="w-16 h-16 rounded-2xl flex items-center justify-center text-white text-xl font-black mb-6 transition-transform group-hover:scale-105"
+                                        className="w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center text-white text-lg md:text-xl font-black mb-6 transition-transform group-hover:scale-105"
                                         style={{
                                             background: `linear-gradient(135deg, hsl(${member.hue},70%,55%), hsl(${member.hue},60%,40%))`,
                                         }}
@@ -303,13 +303,13 @@ export default function AboutUs() {
                 06 — CTA
             ══════════════════════════════════════════════ */}
             <section className="bg-[#080809]">
-                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-28 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center border-b border-white/[0.06]">
+                <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 md:py-28 grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center border-b border-white/[0.06]">
                     <div>
                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo-400 mb-6 flex items-center gap-3">
                             <span className="w-8 h-[1px] bg-indigo-400 inline-block" />
                             Let's build together
                         </p>
-                        <h2 className="text-[clamp(2.2rem,5vw,4rem)] font-extrabold text-white tracking-tight leading-[1.05]">
+                        <h2 className="text-[clamp(1.8rem,6vw,4rem)] font-extrabold text-white tracking-tight leading-[1.1]">
                             Have a product in mind?<br />
                             <span className="text-white/30">We should talk.</span>
                         </h2>
@@ -317,14 +317,14 @@ export default function AboutUs() {
                     <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
                         <Link
                             to="/contact-us"
-                            className="group inline-flex items-center gap-2 px-8 py-4 bg-white text-black font-bold text-sm rounded-full hover:bg-white/90 transition-colors self-start"
+                            className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white text-black font-bold text-sm rounded-full hover:bg-white/90 transition-colors w-full sm:w-auto"
                         >
                             Start a project
                             <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
                         </Link>
                         <Link
                             to="/portfolio"
-                            className="group inline-flex items-center gap-2 px-8 py-4 border border-white/[0.15] text-white font-bold text-sm rounded-full hover:border-white/30 hover:bg-white/[0.04] transition-all self-start"
+                            className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/[0.15] text-white font-bold text-sm rounded-full hover:border-white/30 hover:bg-white/[0.04] transition-all w-full sm:w-auto"
                         >
                             View portfolio
                             <ArrowUpRight size={14} />

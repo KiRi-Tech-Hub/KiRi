@@ -1,7 +1,7 @@
 import { ShoppingBag, GraduationCap, Stethoscope, Home, Plane, Zap, Film, Truck, BarChart3, Factory, Droplet, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const industriesData = [
+export const industriesMenuData = [
     {
         title: 'Ecommerce & Multivendor',
         description: 'Build a smart eCommerce platform to grow reach and brand value.',
@@ -94,7 +94,7 @@ export default function IndustriesMegaMenu({ isOpen, onMouseEnter, onMouseLeave 
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
-                        {industriesData.map((item, index) => (
+                        {industriesMenuData.map((item, index) => (
                             <Link
                                 to="#"
                                 key={index}

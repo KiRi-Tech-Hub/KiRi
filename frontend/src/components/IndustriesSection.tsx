@@ -60,14 +60,14 @@ export default function IndustriesSection() {
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-64 bg-orange-500/10 blur-[100px] rounded-full pointer-events-none"></div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="text-center mb-16 space-y-4">
-                    <p className="text-orange-500 font-bold tracking-widest uppercase text-sm">
+                <div className="text-center mb-12 md:mb-16 space-y-4">
+                    <p className="text-orange-500 font-bold tracking-widest uppercase text-[10px] md:text-sm">
                         INDUSTRIES WE SERVE
                     </p>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold tracking-tight text-white mb-6">
-                        Redefining Standards Across Industries
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold tracking-tight text-white mb-6 leading-tight">
+                        Redefining Standards <br className="sm:hidden" /> Across Industries
                     </h2>
-                    <p className="text-slate-400 max-w-3xl mx-auto text-lg leading-relaxed">
+                    <p className="text-slate-400 max-w-3xl mx-auto text-base md:text-lg leading-relaxed px-2">
                         Generic solutions don't build market leaders. We decode the unique complexities of your sector—whether it's high-stakes FinTech or fast-paced E-commerce—to engineer digital ecosystems that turn industry challenges into competitive advantages.
                     </p>
                 </div>

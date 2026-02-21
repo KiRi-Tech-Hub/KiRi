@@ -38,12 +38,12 @@ export default function ContactFormSection() {
                 <div className="flex flex-col lg:flex-row gap-8 lg:gap-0 rounded-3xl overflow-hidden shadow-2xl border border-slate-100 dark:border-slate-800">
 
                     {/* Left Side - Dark Premium Content Area */}
-                    <div className="lg:w-5/12 bg-slate-900 text-white p-10 lg:p-16 relative overflow-hidden flex flex-col justify-between">
+                    <div className="lg:w-5/12 bg-slate-900 text-white p-8 lg:p-16 relative overflow-hidden flex flex-col justify-between">
                         {/* Abstract Background Shapes */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-orange-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
                         <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-600/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
 
-                        <div className="relative z-10">
+                        <div className="relative z-10 text-center lg:text-left">
                             <p className="text-orange-500 font-bold tracking-widest uppercase text-xs mb-6 inline-flex items-center gap-2">
                                 <span className="w-8 h-[1px] bg-orange-500"></span>
                                 Let's Build Something Great
@@ -51,61 +51,61 @@ export default function ContactFormSection() {
                             <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold leading-tight mb-8 text-white">
                                 Ready to <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-pink-500">Scale</span> Your Business?
                             </h2>
-                            <p className="text-slate-400 text-lg leading-relaxed mb-12">
+                            <p className="text-slate-400 text-base md:text-lg leading-relaxed mb-12 max-w-md mx-auto lg:mx-0">
                                 Your vision deserves world-class execution. Whether you need a product built from scratch or a team to scale your existing platform, we're here to make it happen.
                             </p>
 
-                            <div className="space-y-6">
-                                <div className="flex items-center gap-4 group cursor-pointer">
-                                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300">
+                            <div className="space-y-6 flex flex-col items-center lg:items-start">
+                                <div className="flex items-center gap-4 group cursor-pointer w-full max-w-xs lg:max-w-none">
+                                    <div className="w-12 h-12 rounded-full bg-slate-800 flex-shrink-0 flex items-center justify-center group-hover:bg-orange-500 transition-colors duration-300">
                                         <Mail className="w-5 h-5 text-slate-300 group-hover:text-white" />
                                     </div>
-                                    <div>
-                                        <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Email Us</p>
-                                        <p className="text-white font-medium">kiri.tech.hub@gmail.com</p>
+                                    <div className="text-left">
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Email Us</p>
+                                        <p className="text-white font-medium text-sm md:text-base">kiri.tech.hub@gmail.com</p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-4 group cursor-pointer">
-                                    <div className="w-12 h-12 rounded-full bg-slate-800 flex items-center justify-center group-hover:bg-blue-600 transition-colors duration-300">
+                                <div className="flex items-center gap-4 group cursor-pointer w-full max-w-xs lg:max-w-none">
+                                    <div className="w-12 h-12 rounded-full bg-slate-800 flex-shrink-0 flex items-center justify-center group-hover:bg-blue-600 transition-colors duration-300">
                                         <Phone className="w-5 h-5 text-slate-300 group-hover:text-white" />
                                     </div>
-                                    <div>
-                                        <p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Call Us</p>
-                                        <p className="text-white font-medium">+91 85117 05401</p>
+                                    <div className="text-left">
+                                        <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Call Us</p>
+                                        <p className="text-white font-medium text-sm md:text-base">+91 85117 05401</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Location Pills */}
-                        <div className="mt-16 pt-8 border-t border-slate-800">
-                            <div className="flex flex-wrap gap-4 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                        <div className="mt-12 pt-8 border-t border-slate-800">
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-x-4 gap-y-3 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
                                 <span className="hover:text-white transition-colors cursor-default">Bangalore</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Hyderabad</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Ahmedabad</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Pune</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Mumbai</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Kolkata</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Delhi</span>
-                                <span>•</span>
+                                <span className="hidden sm:inline">•</span>
                                 <span className="hover:text-white transition-colors cursor-default">Gurugram</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Right Side - Clean Spacious Form */}
-                    <div className="lg:w-7/12 bg-slate-50 dark:bg-slate-900/50 p-10 lg:p-16 flex flex-col justify-center">
-                        <div className="max-w-lg mx-auto w-full">
+                    <div className="lg:w-7/12 bg-slate-50 dark:bg-slate-900/50 p-8 lg:p-16 flex flex-col justify-center">
+                        <div className="max-w-lg mx-auto w-full text-center lg:text-left">
                             <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                                 Send us a Message
                             </h3>
-                            <p className="text-slate-500 mb-10">We usually respond within 24 hours.</p>
+                            <p className="text-slate-500 text-sm mb-10">We usually respond within 24 hours.</p>
 
                             <form ref={form} onSubmit={sendEmail} className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

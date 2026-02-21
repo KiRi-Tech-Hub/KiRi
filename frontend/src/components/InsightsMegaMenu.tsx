@@ -1,7 +1,7 @@
 import { Info, Briefcase, UserPlus, Phone, Lightbulb, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const insightsData = [
+export const insightsMenuData = [
     {
         title: 'About Us',
         description: 'Our story, mission, values, and the team behind KiRi.',
@@ -69,7 +69,7 @@ export default function InsightsMegaMenu({ isOpen, onMouseEnter, onMouseLeave }:
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 max-w-4xl">
-                        {insightsData.map((item, index) => (
+                        {insightsMenuData.map((item, index) => (
                             <Link
                                 to={item.href}
                                 key={index}

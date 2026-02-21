@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { ArrowRight, Code, Smartphone, Rocket, Database, Layers, Globe } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const menuData = [
+export const servicesMenuData = [
     {
         id: 'application',
         label: 'Application Solution',
@@ -128,7 +128,7 @@ export default function MegaMenu({ isOpen, onMouseEnter, onMouseLeave }: MegaMen
             <div className="max-w-7xl mx-auto flex min-h-[400px]">
                 {/* Left Sidebar */}
                 <div className="w-1/4 bg-slate-50 dark:bg-slate-950 border-r border-slate-100 dark:border-slate-800 p-6 space-y-2">
-                    {menuData.map((category) => (
+                    {servicesMenuData.map((category) => (
                         <button
                             key={category.id}
                             onMouseEnter={() => setActiveCategory(category.id)}
@@ -145,7 +145,7 @@ export default function MegaMenu({ isOpen, onMouseEnter, onMouseLeave }: MegaMen
 
                 {/* Right Content Area */}
                 <div className="w-3/4 p-8 relative overflow-hidden">
-                    {menuData.map((category) => (
+                    {servicesMenuData.map((category) => (
                         <div
                             key={category.id}
                             className={`absolute inset-0 p-8 grid grid-cols-3 gap-8 content-start transition-all duration-300 ${activeCategory === category.id

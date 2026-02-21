@@ -98,14 +98,14 @@ export default function ProcessSection() {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div className="mb-16">
-                    <p className="text-blue-600 dark:text-blue-500 font-bold tracking-widest uppercase text-sm mb-4">
+                <div className="mb-12 md:mb-16 text-center lg:text-left">
+                    <p className="text-blue-600 dark:text-blue-500 font-bold tracking-widest uppercase text-[10px] md:text-sm mb-4">
                         INNOVATE. INTEGRATE. IMPACT.
                     </p>
-                    <h2 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white mb-6">
-                        From Vision to Reality: Our Proven Process
+                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 dark:text-white mb-6 leading-tight">
+                        From Vision to Reality: <br className="sm:hidden" /> Our Proven Process
                     </h2>
-                    <p className="text-slate-600 dark:text-slate-400 max-w-4xl leading-relaxed text-lg">
+                    <p className="text-slate-600 dark:text-slate-400 max-w-4xl leading-relaxed text-base md:text-lg mx-auto lg:mx-0">
                         We don't just build software; we engineer success. Our proven development process transforms complex challenges into elegant, high-impact digital solutions, ensuring your vision is realized with precision, scalability, and speed.
                     </p>
                 </div>
