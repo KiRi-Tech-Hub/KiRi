@@ -1,55 +1,66 @@
 import { ShoppingCart, Plane, Heart, Home, GraduationCap, Truck, Zap, BarChart3, Film, Factory } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const industries = [
     {
         name: 'Ecommerce',
         icon: ShoppingCart,
-        description: 'Scalable storefronts driving sales and loyalty.'
+        description: 'Scalable storefronts driving sales and loyalty.',
+        slug: 'ecommerce-multivendor'
     },
     {
         name: 'Travel & Hospitality',
         icon: Plane,
-        description: 'Seamless booking engines for modern travelers.'
+        description: 'Seamless booking engines for modern travelers.',
+        slug: 'travel-hospitality'
     },
     {
         name: 'Healthcare',
         icon: Heart,
-        description: 'Secure, compliant, patient-centric solutions.'
+        description: 'Secure, compliant, patient-centric solutions.',
+        slug: 'medical-healthcare'
     },
     {
         name: 'Real Estate & Constr.',
         icon: Home,
-        description: 'Immersive property experiences & management tools.'
+        description: 'Immersive property experiences & management tools.',
+        slug: 'real-estate-construction'
     },
     {
         name: 'Education',
         icon: GraduationCap,
-        description: 'Interactive LMS and e-learning platforms.'
+        description: 'Interactive LMS and e-learning platforms.',
+        slug: 'edtech-elearning'
     },
     {
         name: 'Transport & Logistics',
         icon: Truck,
-        description: 'Real-time tracking and fleet management systems.'
+        description: 'Real-time tracking and fleet management systems.',
+        slug: 'transportation-logistics'
     },
     {
         name: 'Utilities & On-Demand',
         icon: Zap,
-        description: 'Smart solutions for instant service delivery.'
+        description: 'Smart solutions for instant service delivery.',
+        slug: 'utilities-on-demand'
     },
     {
         name: 'Finance & Insurance',
         icon: BarChart3,
-        description: 'High-security fintech platforms for the digital age.'
+        description: 'High-security fintech platforms for the digital age.',
+        slug: 'finance-insurance'
     },
     {
         name: 'Media & Entertainment',
         icon: Film,
-        description: 'Engaging content delivery & streaming apps.'
+        description: 'Engaging content delivery & streaming apps.',
+        slug: 'media-entertainment'
     },
     {
         name: 'Manufacturing',
         icon: Factory,
-        description: 'IoT-driven automation & efficiency tools.'
+        description: 'IoT-driven automation & efficiency tools.',
+        slug: 'manufacturing'
     }
 ];
 
@@ -74,7 +85,8 @@ export default function IndustriesSection() {
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                     {industries.map((item, index) => (
-                        <div
+                        <Link
+                            to={`/industries/${item.slug}`}
                             key={index}
                             className="group relative bg-neutral-900/50 border border-white/10 hover:border-orange-500/50 rounded-2xl p-6 h-48 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-neutral-900 hover:-translate-y-1 cursor-pointer overflow-hidden"
                         >
@@ -94,7 +106,7 @@ export default function IndustriesSection() {
                                     {item.description}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>

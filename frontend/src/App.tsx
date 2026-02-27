@@ -19,6 +19,7 @@ import BlogPost from './pages/BlogPost';
 import Careers from './pages/Careers';
 import Contact from './pages/Contact';
 import SolutionDetail from './pages/SolutionDetail';
+import IndustryDetail from './pages/IndustryDetail';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/solutions" element={<Solutions />} />
           <Route path="/solutions/:slug" element={<SolutionDetail />} />
           <Route path="/industries" element={<Industries />} />
+          <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/technologies" element={<Technologies />} />
           <Route path="/technologies/:slug" element={<TechCategoryPage />} />

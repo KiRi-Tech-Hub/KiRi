@@ -5,62 +5,74 @@ export const industriesMenuData = [
     {
         title: 'Ecommerce & Multivendor',
         description: 'Build a smart eCommerce platform to grow reach and brand value.',
-        icon: ShoppingBag
+        icon: ShoppingBag,
+        slug: 'ecommerce-multivendor'
     },
     {
         title: 'EdTech & E-Learning',
         description: 'Create learning platforms that engage and boost your brand.',
-        icon: GraduationCap
+        icon: GraduationCap,
+        slug: 'edtech-elearning'
     },
     {
         title: 'Medical & Healthcare',
         description: 'Custom healthcare applications to improve care and visibility.',
-        icon: Stethoscope
+        icon: Stethoscope,
+        slug: 'medical-healthcare'
     },
     {
         title: 'Real Estate & Construction',
         description: 'Real estate web and apps built to attract, convert, and engage.',
-        icon: Home
+        icon: Home,
+        slug: 'real-estate-construction'
     },
     {
         title: 'Travel & Hospitality',
         description: 'Travel applications made to simplify booking for a safe journey.',
-        icon: Plane
+        icon: Plane,
+        slug: 'travel-hospitality'
     },
     {
         title: 'Utilities & On Demand',
         description: 'On-demand websites & apps for fast, reliable, and smart service.',
-        icon: Zap
+        icon: Zap,
+        slug: 'utilities-on-demand'
     },
     {
         title: 'Media & Entertainment',
         description: 'Applications for streaming, media sharing, and user delight.',
-        icon: Film
+        icon: Film,
+        slug: 'media-entertainment'
     },
     {
         title: 'Transportation & Logistics',
         description: 'Logistics applications built to track, manage, and deliver fast.',
-        icon: Truck
+        icon: Truck,
+        slug: 'transportation-logistics'
     },
     {
         title: 'Finance & Insurance',
         description: 'Secure fintech platforms that simplify money and coverage.',
-        icon: BarChart3
+        icon: BarChart3,
+        slug: 'finance-insurance'
     },
     {
         title: 'Manufacturing',
         description: 'Applications that streamline manufacturing and boost output.',
-        icon: Factory
+        icon: Factory,
+        slug: 'manufacturing'
     },
     {
         title: 'Oil and Gas',
         description: 'Custom software to streamline operations and boost energy efficiency.',
-        icon: Droplet
+        icon: Droplet,
+        slug: 'oil-and-gas'
     },
     {
         title: 'Other Industries',
         description: 'Deliver smart solutions to suit your unique industry.',
-        icon: Layers
+        icon: Layers,
+        slug: 'other-industries'
     }
 ];
 
@@ -96,7 +108,7 @@ export default function IndustriesMegaMenu({ isOpen, onMouseEnter, onMouseLeave 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
                         {industriesMenuData.map((item, index) => (
                             <Link
-                                to="#"
+                                to={`/industries/${item.slug}`}
                                 key={index}
                                 className="group block p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
                             >
