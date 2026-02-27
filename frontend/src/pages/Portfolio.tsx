@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 const categories = ['All', 'Web', 'Mobile', 'E-Commerce', 'DevOps', 'AI / ML'];
 
@@ -144,9 +144,7 @@ function StackCard({ project, index }: { project: typeof projects[0]; index: num
                             <span className="font-mono text-5xl font-black text-slate-100 dark:text-white/[0.06] tabular-nums select-none">
                                 {String(index + 1).padStart(2, '0')}
                             </span>
-                            <button className="w-9 h-9 rounded-full border border-slate-200 dark:border-white/[0.1] flex items-center justify-center text-slate-400 dark:text-white/25 hover:text-slate-900 dark:hover:text-white hover:border-slate-400 dark:hover:border-white/40 transition-all">
-                                <ExternalLink size={13} />
-                            </button>
+                            {/* Link removed as per request */}
                         </div>
                     </div>
                 </div>
