@@ -10,41 +10,49 @@ export const solutionsMenuData = [
         items: [
             {
                 title: 'Food Delivery',
+                slug: 'food-delivery',
                 description: 'Create intuitive apps for easy food search, order, and delivery.',
                 icon: ShoppingCart
             },
             {
                 title: 'Grocery Delivery',
+                slug: 'grocery-delivery',
                 description: 'Build custom app for quick shopping and smooth grocery delivery.',
                 icon: Truck
             },
             {
                 title: 'Taxi Service',
+                slug: 'taxi-service',
                 description: 'Travel safely with a quick, easy, and smooth taxi booking app.',
                 icon: Car
             },
             {
                 title: 'Fintech',
+                slug: 'fintech',
                 description: 'Smart AI solutions to enhance financial services and operations.',
                 icon: CreditCard
             },
             {
                 title: 'Fitness/Gym',
+                slug: 'fitness-gym',
                 description: 'Achieve fitness goals with a personalized workout tracking app.',
                 icon: Activity
             },
             {
                 title: 'Astrology',
+                slug: 'astrology',
                 description: 'Develop astrology app with horoscopes, predictions, & guidance.',
                 icon: Star
             },
             {
                 title: 'Matrimonial Application',
+                slug: 'matrimonial',
                 description: 'Build a matrimonial website that helps people find right match.',
                 icon: Heart
             },
             {
                 title: 'Dating',
+                slug: 'dating',
                 description: 'Develop an AI-driven dating app for a smart matching experience.',
                 icon: Users
             }
@@ -57,31 +65,37 @@ export const solutionsMenuData = [
         items: [
             {
                 title: 'ERP Systems',
+                slug: 'erp-systems',
                 description: 'Integrated management of main business processes.',
                 icon: Building
             },
             {
                 title: 'CRM Software',
+                slug: 'crm-software',
                 description: 'Manage interactions with current and potential customers.',
                 icon: Users
             },
             {
                 title: 'Supply Chain Management',
+                slug: 'supply-chain',
                 description: 'Optimize the flow of goods and services.',
                 icon: Truck
             },
             {
                 title: 'HR Management',
+                slug: 'hr-management',
                 description: 'Streamline human resources and payroll processes.',
                 icon: Briefcase
             },
             {
                 title: 'Industrial Automation',
+                slug: 'industrial-automation',
                 description: 'Automate manufacturing and industrial processes.',
                 icon: Factory
             },
             {
                 title: 'Cybersecurity',
+                slug: 'cybersecurity',
                 description: 'Protect enterprise systems and data from cyber threats.',
                 icon: Shield
             }
@@ -153,10 +167,11 @@ export default function SolutionsMegaMenu({ isOpen, onMouseEnter, onMouseLeave }
                                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white">{category.label}</h3>
                             </div>
 
-                            {category.items.map((item, index) => (
+                            {category.items.map((item: any, index) => (
                                 <Link
-                                    to="#"
+                                    to={`/solutions/${item.slug}`}
                                     key={index}
+                                    onClick={onMouseLeave}
                                     className="group block p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-transparent hover:border-slate-100 dark:hover:border-slate-700"
                                 >
                                     <div className="mb-3 text-blue-600 dark:text-blue-500 group-hover:scale-110 transition-transform duration-300">
