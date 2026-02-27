@@ -152,11 +152,11 @@ export default function SolutionDetail() {
                         variants={sentence}
                         initial="hidden"
                         animate="visible"
-                        className="font-black text-white leading-[0.9] tracking-tighter mb-10 overflow-hidden"
+                        className="font-black text-white leading-[0.9] tracking-tighter mb-10 overflow-visible"
                         style={{ fontSize: 'clamp(3.5rem, 10vw, 8rem)' }}
                     >
                         {solution.title.split(' ').map((word, i) => (
-                            <span key={i} className="inline-block mr-[0.3em] overflow-hidden whitespace-nowrap">
+                            <span key={i} className="inline-block mr-[0.3em] whitespace-pre">
                                 {word.split('').map((char, j) => (
                                     <motion.span key={j} variants={letter} className="inline-block">
                                         {char}
