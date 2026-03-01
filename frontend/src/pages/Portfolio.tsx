@@ -1,6 +1,6 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, X, ChevronLeft, ChevronRight, MonitorPlay, Maximize2 } from 'lucide-react';
 
 const categories = ['All', 'Web', 'Mobile', 'E-Commerce', 'DevOps', 'AI / ML'];
 
@@ -52,6 +52,7 @@ const projects = [
         description: 'Competitive coding platform with real-time judging, AI-driven hints, leaderboards, and live contest rooms.',
         tags: ['Next.js', 'Go', 'Redis'],
         result: '10K+ active users',
+        hasShowcase: true,
     },
     {
         category: 'Mobile',
@@ -71,8 +72,246 @@ const projects = [
     },
 ];
 
+/* ── CodeHive slides data ──────────────────────────────────────────────── */
+const codehiveSlides = [
+    {
+        src: '/our project/codehive1.png',
+        title: 'Landing Page',
+        description: 'The immersive CodeHive home screen — featuring a bold hero section that communicates the platform\'s mission of competitive coding excellence.',
+    },
+    {
+        src: '/our project/codehive2.png',
+        title: 'User Dashboard',
+        description: 'Personalised dashboard showing contest history, ranking progress, solved problem counts, and activity heat-maps at a glance.',
+    },
+    {
+        src: '/our project/codehive3.png',
+        title: 'Problem Explorer',
+        description: 'Browse and filter thousands of coding problems by difficulty, topic, tag, and company — with an instant search experience.',
+    },
+    {
+        src: '/our project/codehive4.png',
+        title: 'Code Editor',
+        description: 'Feature-rich browser-based IDE with syntax highlighting, multi-language support, and real-time compilation feedback.',
+    },
+    {
+        src: '/our project/codehive5.png',
+        title: 'AI-Driven Hints',
+        description: 'Stuck on a problem? The integrated AI assistant offers contextual hints and step-by-step guidance without giving away the full solution.',
+    },
+    {
+        src: '/our project/codehive6.png',
+        title: 'Live Contests',
+        description: 'Host or join timed coding contests with live leaderboard updates, countdown timers, and automated result announcement.',
+    },
+    {
+        src: '/our project/codehive7.png',
+        title: 'Leaderboard',
+        description: 'Global and per-contest leaderboards with tier badges, rating graphs, and peer comparison to fuel healthy competition.',
+    },
+    {
+        src: '/our project/codehive8.png',
+        title: 'Judging Engine Results',
+        description: 'Millisecond-accurate verdict screen showing test-case pass/fail breakdown, execution time, and memory usage for each submission.',
+    },
+    {
+        src: '/our project/codehive9.png',
+        title: 'User Profile',
+        description: 'Public developer profile showcasing badges earned, contest achievements, streak calendar, and problem-solving statistics.',
+    },
+    {
+        src: '/our project/codehive10.png',
+        title: 'Discussion Forum',
+        description: 'Community-driven editorial forum where users share approaches, debate optimisations, and upvote the clearest explanations.',
+    },
+    {
+        src: '/our project/codehive11.png',
+        title: 'Interview Prep Mode',
+        description: 'Curated problem sets mapped to real FAANG interview rounds, complete with time-boxed practice sessions and mock evaluations.',
+    },
+    {
+        src: '/our project/codhive12.png',
+        title: 'Analytics & Insights',
+        description: 'Deep-dive analytics page revealing weak topic areas, time-per-problem trends, and personalised next-step recommendations.',
+    },
+    {
+        src: '/our project/codehive13.png',
+        title: 'Contest Room',
+        description: 'Real-time collaborative contest room with participant presence indicators and live submission feeds.',
+    },
+    {
+        src: '/our project/codehive14.png',
+        title: 'Notifications Centre',
+        description: 'Centralised notification hub for contest reminders, badge unlocks, editorial releases, and community reply alerts.',
+    },
+    {
+        src: '/our project/codehive15.png',
+        title: 'Admin Panel',
+        description: 'Powerful admin interface for creating problems, setting contest rules, managing users, and monitoring platform health metrics.',
+    },
+];
+
+/* ── Slideshow Modal ───────────────────────────────────────────────────── */
+function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
+    const [current, setCurrent] = useState(0);
+    const [direction, setDirection] = useState(0);
+    const total = codehiveSlides.length;
+
+    const go = useCallback((dir: number) => {
+        setDirection(dir);
+        setCurrent(prev => (prev + dir + total) % total);
+    }, [total]);
+
+    // Keyboard navigation
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            if (e.key === 'ArrowRight') go(1);
+            if (e.key === 'ArrowLeft') go(-1);
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handler);
+        return () => window.removeEventListener('keydown', handler);
+    }, [go, onClose]);
+
+    // Lock body scroll
+    useEffect(() => {
+        document.body.style.overflow = 'hidden';
+        return () => { document.body.style.overflow = ''; };
+    }, []);
+
+    const slide = codehiveSlides[current];
+
+    const variants = {
+        enter: (dir: number) => ({ x: dir > 0 ? '60%' : '-60%', opacity: 0, scale: 0.95 }),
+        center: { x: 0, opacity: 1, scale: 1 },
+        exit: (dir: number) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0, scale: 0.95 }),
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[9999] flex flex-col"
+            style={{ background: 'rgba(6,6,10,0.97)', backdropFilter: 'blur(16px)' }}
+        >
+            {/* ── Top Bar ── */}
+            <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07] flex-shrink-0">
+                <div className="flex items-center gap-3">
+                    <div className="w-7 h-7 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                        <MonitorPlay size={14} className="text-amber-400" />
+                    </div>
+                    <div>
+                        <p className="text-[9px] font-black uppercase tracking-[0.25em] text-white/30">CodeHive · Project Showcase</p>
+                    </div>
+                </div>
+                <div className="flex items-center gap-4">
+                    <span className="font-mono text-xs text-white/25 tabular-nums">
+                        {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+                    </span>
+                    <button
+                        onClick={onClose}
+                        className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center transition-colors"
+                        aria-label="Close showcase"
+                    >
+                        <X size={14} className="text-white/60" />
+                    </button>
+                </div>
+            </div>
+
+            {/* ── Main area ── */}
+            <div className="flex-1 flex items-center justify-center px-4 py-4 min-h-0 overflow-hidden">
+                {/* Prev button */}
+                <button
+                    onClick={() => go(-1)}
+                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center transition-colors mr-4"
+                    aria-label="Previous slide"
+                >
+                    <ChevronLeft size={18} className="text-white/60" />
+                </button>
+
+                {/* Image stage */}
+                <div className="relative flex-1 flex items-center justify-center overflow-hidden" style={{ maxWidth: '900px' }}>
+                    <AnimatePresence mode="wait" custom={direction}>
+                        <motion.div
+                            key={current}
+                            custom={direction}
+                            variants={variants}
+                            initial="enter"
+                            animate="center"
+                            exit="exit"
+                            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                            className="w-full"
+                        >
+                            <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl"
+                                style={{ background: '#111116' }}>
+                                <img
+                                    src={slide.src}
+                                    alt={slide.title}
+                                    className="w-full object-contain"
+                                    style={{ maxHeight: 'calc(100vh - 260px)' }}
+                                    draggable={false}
+                                />
+                            </div>
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
+
+                {/* Next button */}
+                <button
+                    onClick={() => go(1)}
+                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center transition-colors ml-4"
+                    aria-label="Next slide"
+                >
+                    <ChevronRight size={18} className="text-white/60" />
+                </button>
+            </div>
+
+            {/* ── Bottom: CodeHive brief + dots ── */}
+            <div className="flex-shrink-0 border-t border-white/[0.07] px-6 py-5">
+                <div className="max-w-2xl mx-auto text-center">
+                    <p className="text-white/50 text-sm leading-relaxed mb-4">
+                        <span className="text-amber-400 font-semibold">CodeHive</span> is a competitive coding platform engineered for developers who thrive under pressure — featuring real-time code execution with multi-language support, an AST-powered static analyzer for instant feedback, AI-driven hints, browser-proctored live contests, and a global leaderboard system. Built with <span className="text-white/70 font-medium">React 19 + Vite + TypeScript + Tailwind CSS</span> on the frontend, <span className="text-white/70 font-medium">Node.js + TypeScript + Redis</span> on the backend, and <span className="text-white/70 font-medium">Monaco Editor</span> for the in-browser IDE — it delivers a low-latency, secure judging experience with sandboxed code execution, identity verification, and a rich analytics suite, designed to scale for thousands of concurrent competitors across all skill levels.
+                    </p>
+
+                    {/* Dot strip */}
+                    <div className="flex items-center justify-center gap-1.5 flex-wrap">
+                        {codehiveSlides.map((_, i) => (
+                            <button
+                                key={i}
+                                onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
+                                aria-label={`Go to slide ${i + 1}`}
+                                className="transition-all duration-200"
+                                style={{
+                                    width: i === current ? '20px' : '6px',
+                                    height: '6px',
+                                    borderRadius: '4px',
+                                    background: i === current ? '#f59e0b' : 'rgba(255,255,255,0.2)',
+                                }}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Keyboard hint */}
+            <div className="absolute bottom-4 right-6 text-[10px] text-white/15 hidden md:block">
+                ← → to navigate · Esc to close
+            </div>
+        </motion.div>
+    );
+}
+
 /* ── Sticky stacked card ─────────────────────────────────────────────── */
-function StackCard({ project, index }: { project: typeof projects[0]; index: number }) {
+function StackCard({
+    project,
+    index,
+    onShowcase,
+}: {
+    project: typeof projects[0];
+    index: number;
+    onShowcase?: () => void;
+}) {
     const ref = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
     const scale = useTransform(scrollYProgress, [0, 1], [1, 0.96]);
@@ -93,8 +332,8 @@ function StackCard({ project, index }: { project: typeof projects[0]; index: num
                 transition={{ type: 'spring', stiffness: 280, damping: 24 }}
                 className="rounded-2xl overflow-hidden border border-slate-200 dark:border-white/[0.08] bg-white dark:bg-[#111114] shadow-sm dark:shadow-none"
             >
-                {/* Thin top border accent — single neutral color */}
-                <div className="h-[2px] bg-slate-900 dark:bg-white w-full" />
+                {/* Thin top border accent — special amber for CodeHive */}
+                <div className={`h-[2px] w-full ${project.hasShowcase ? 'bg-amber-500' : 'bg-slate-900 dark:bg-white'}`} />
 
                 <div className="p-8 md:p-10">
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-8 items-start">
@@ -130,21 +369,32 @@ function StackCard({ project, index }: { project: typeof projects[0]; index: num
                                 ))}
                             </div>
 
-                            {/* Result */}
-                            <div className="inline-flex items-center gap-2">
-                                <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-white/30 flex-shrink-0" />
-                                <span className="text-xs font-semibold text-slate-600 dark:text-white/50">
-                                    {project.result}
-                                </span>
+                            {/* Result + (CodeHive only) View Project button */}
+                            <div className="flex items-center gap-5 flex-wrap">
+                                <div className="inline-flex items-center gap-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-white/30 flex-shrink-0" />
+                                    <span className="text-xs font-semibold text-slate-600 dark:text-white/50">
+                                        {project.result}
+                                    </span>
+                                </div>
+
+                                {project.hasShowcase && onShowcase && (
+                                    <button
+                                        onClick={onShowcase}
+                                        className="group inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold border border-amber-500/40 text-amber-600 dark:text-amber-400 hover:bg-amber-500 hover:border-amber-500 hover:text-white transition-all duration-200"
+                                    >
+                                        <Maximize2 size={11} className="group-hover:scale-110 transition-transform" />
+                                        View Project
+                                    </button>
+                                )}
                             </div>
                         </div>
 
-                        {/* Right — index + link */}
+                        {/* Right — index */}
                         <div className="flex md:flex-col items-center md:items-end gap-6 md:gap-10 flex-shrink-0">
                             <span className="font-mono text-5xl font-black text-slate-100 dark:text-white/[0.06] tabular-nums select-none">
                                 {String(index + 1).padStart(2, '0')}
                             </span>
-                            {/* Link removed as per request */}
                         </div>
                     </div>
                 </div>
@@ -156,6 +406,7 @@ function StackCard({ project, index }: { project: typeof projects[0]; index: num
 /* ── Page ────────────────────────────────────────────────────────────── */
 export default function Portfolio() {
     const [active, setActive] = useState('All');
+    const [showcaseOpen, setShowcaseOpen] = useState(false);
     const filtered = active === 'All' ? projects : projects.filter(p => p.category === active);
 
     return (
@@ -228,7 +479,12 @@ export default function Portfolio() {
                     className="max-w-4xl mx-auto px-6 pt-8 pb-64"
                 >
                     {filtered.map((project, i) => (
-                        <StackCard key={project.title} project={project} index={i} />
+                        <StackCard
+                            key={project.title}
+                            project={project}
+                            index={i}
+                            onShowcase={project.hasShowcase ? () => setShowcaseOpen(true) : undefined}
+                        />
                     ))}
                 </motion.section>
             </AnimatePresence>
@@ -254,6 +510,13 @@ export default function Portfolio() {
                     </a>
                 </div>
             </section>
+
+            {/* ── CodeHive Showcase Modal ───────────────────── */}
+            <AnimatePresence>
+                {showcaseOpen && (
+                    <CodeHiveShowcase onClose={() => setShowcaseOpen(false)} />
+                )}
+            </AnimatePresence>
         </div>
     );
 }
