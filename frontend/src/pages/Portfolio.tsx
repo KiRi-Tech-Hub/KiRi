@@ -531,7 +531,7 @@ export default function Portfolio() {
             </section>
 
             {/* ── Sticky filter bar ────────────────────────── */}
-            <div className="sticky top-[72px] z-50 bg-[#f8f8fb]/90 dark:bg-[#0a0a0b]/90 backdrop-blur-md border-b border-slate-100 dark:border-white/[0.06]">
+            <div className="sticky top-[72px] z-30 bg-[#f8f8fb]/90 dark:bg-[#0a0a0b]/90 backdrop-blur-md border-b border-slate-100 dark:border-white/[0.06]">
                 <div className="max-w-4xl mx-auto px-6 py-3.5">
                     <div className="flex flex-wrap gap-2">
                         {categories.map((cat) => (
