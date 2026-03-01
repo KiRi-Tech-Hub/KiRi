@@ -155,6 +155,9 @@ const codehiveSlides = [
 function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [isFullscreen, setIsFullscreen] = useState(false);
+    const [fsHint, setFsHint] = useState(false);
+    const touchStartX = useRef<number | null>(null);
     const total = codehiveSlides.length;
 
     const go = useCallback((dir: number) => {
@@ -167,17 +170,38 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
         const handler = (e: KeyboardEvent) => {
             if (e.key === 'ArrowRight') go(1);
             if (e.key === 'ArrowLeft') go(-1);
-            if (e.key === 'Escape') onClose();
+            if (e.key === 'Escape') {
+                if (isFullscreen) setIsFullscreen(false);
+                else onClose();
+            }
         };
         window.addEventListener('keydown', handler);
         return () => window.removeEventListener('keydown', handler);
-    }, [go, onClose]);
+    }, [go, onClose, isFullscreen]);
 
     // Lock body scroll
     useEffect(() => {
         document.body.style.overflow = 'hidden';
         return () => { document.body.style.overflow = ''; };
     }, []);
+
+    // Touch swipe handlers
+    const handleTouchStart = (e: React.TouchEvent) => {
+        touchStartX.current = e.touches[0].clientX;
+    };
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (touchStartX.current === null) return;
+        const delta = e.changedTouches[0].clientX - touchStartX.current;
+        if (Math.abs(delta) > 40) go(delta < 0 ? 1 : -1);
+        touchStartX.current = null;
+    };
+
+    // Tap image → fullscreen
+    const handleImageTap = () => {
+        setIsFullscreen(true);
+        setFsHint(true);
+        setTimeout(() => setFsHint(false), 2000);
+    };
 
     const slide = codehiveSlides[current];
 
@@ -187,6 +211,57 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
         exit: (dir: number) => ({ x: dir > 0 ? '-60%' : '60%', opacity: 0, scale: 0.95 }),
     };
 
+    /* ── Fullscreen overlay (mobile tap-to-expand) ── */
+    if (isFullscreen) {
+        return (
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[10000] flex items-center justify-center bg-black"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onClick={() => setIsFullscreen(false)}
+            >
+                <AnimatePresence mode="wait" custom={direction}>
+                    <motion.img
+                        key={current}
+                        custom={direction}
+                        variants={variants}
+                        initial="enter"
+                        animate="center"
+                        exit="exit"
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                        src={slide.src}
+                        alt={slide.title}
+                        className="w-full h-full object-contain"
+                        draggable={false}
+                        onClick={e => e.stopPropagation()}
+                    />
+                </AnimatePresence>
+
+                {/* Slide counter */}
+                <div className="absolute top-4 right-4 font-mono text-xs text-white/40 tabular-nums">
+                    {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+                </div>
+
+                {/* Tap-to-close hint */}
+                <AnimatePresence>
+                    {fsHint && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 8 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 8 }}
+                            className="absolute bottom-8 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 text-white/50 text-xs"
+                        >
+                            Tap anywhere to exit · Swipe to navigate
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </motion.div>
+        );
+    }
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -194,6 +269,8 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[9999] flex flex-col"
             style={{ background: 'rgba(6,6,10,0.97)', backdropFilter: 'blur(16px)' }}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
         >
             {/* ── Top Bar ── */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.07] flex-shrink-0">
@@ -221,10 +298,10 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
 
             {/* ── Main area ── */}
             <div className="flex-1 flex items-center justify-center px-4 py-4 min-h-0 overflow-hidden">
-                {/* Prev button */}
+                {/* Prev button — hidden on mobile (use swipe) */}
                 <button
                     onClick={() => go(-1)}
-                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center transition-colors mr-4"
+                    className="hidden sm:flex flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] items-center justify-center transition-colors mr-4"
                     aria-label="Previous slide"
                 >
                     <ChevronLeft size={18} className="text-white/60" />
@@ -243,8 +320,11 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
                             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                             className="w-full"
                         >
-                            <div className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl"
-                                style={{ background: '#111116' }}>
+                            <div
+                                className="rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl cursor-zoom-in"
+                                style={{ background: '#111116' }}
+                                onClick={handleImageTap}
+                            >
                                 <img
                                     src={slide.src}
                                     alt={slide.title}
@@ -253,14 +333,16 @@ function CodeHiveShowcase({ onClose }: { onClose: () => void }) {
                                     draggable={false}
                                 />
                             </div>
+                            {/* Mobile tap hint */}
+                            <p className="sm:hidden text-center text-[10px] text-white/20 mt-2">Tap image to expand · Swipe to navigate</p>
                         </motion.div>
                     </AnimatePresence>
                 </div>
 
-                {/* Next button */}
+                {/* Next button — hidden on mobile (use swipe) */}
                 <button
                     onClick={() => go(1)}
-                    className="flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center transition-colors ml-4"
+                    className="hidden sm:flex flex-shrink-0 w-10 h-10 rounded-full bg-white/[0.06] hover:bg-white/[0.12] items-center justify-center transition-colors ml-4"
                     aria-label="Next slide"
                 >
                     <ChevronRight size={18} className="text-white/60" />
