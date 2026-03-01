@@ -13,26 +13,27 @@ export default function Footer() {
                         <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed max-w-sm">
                             High-end technical consultancy and development. Since 2023, we've been crafting digital products that define industries.
                         </p>
+
                     </div>
 
                     <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase text-xs tracking-wider">Expertise</h4>
                         <ul className="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-                            <li><Link to="/services" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Web Engineering</Link></li>
-                            <li><Link to="/services" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Android Platforms</Link></li>
-                            <li><Link to="/services" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Cloud Infrastructure</Link></li>
-                            <li><Link to="/services" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Product Strategy</Link></li>
+                            <li><Link to="/portfolio" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Web Engineering</Link></li>
+                            <li><Link to="/portfolio" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Android Platforms</Link></li>
+                            <li><Link to="/portfolio" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Cloud Infrastructure</Link></li>
+                            <li><Link to="/portfolio" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Product Strategy</Link></li>
                         </ul>
                     </div>
 
                     <div>
                         <h4 className="font-bold text-slate-900 dark:text-white mb-6 uppercase text-xs tracking-wider">Company</h4>
                         <ul className="space-y-4 text-sm text-slate-600 dark:text-slate-400">
-                            <li><Link to="/our-philosophy" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Our Philosophy</Link></li>
-                            <li><Link to="/about" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</Link></li>
-                            <li><Link to="/portfolio" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</Link></li>
-                            <li><Link to="/careers" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Careers</Link></li>
-                            <li><Link to="/contact-us" className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</Link></li>
+                            <li><Link to="/our-philosophy" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Our Philosophy</Link></li>
+                            <li><Link to="/about" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">About Us</Link></li>
+                            <li><Link to="/portfolio" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Portfolio</Link></li>
+                            <li><Link to="/careers" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Careers</Link></li>
+                            <li><Link to="/contact-us" onClick={() => window.scrollTo(0, 0)} className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">Contact</Link></li>
                         </ul>
                     </div>
                 </div>
